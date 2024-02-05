@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'core/shared/color.dart';
+import 'view/screen/Login.dart';
+import 'view/screen/Signup.dart';
 import 'view/screen/layout_home/layout_home.dart';
 
 void main() {
@@ -25,8 +27,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
 
-      // home: ChatInboxScreen(),
-      initialRoute: '/LayoutHome',
+      home: Signup(),
+      // initialRoute: '/LayoutHome',
       getPages: [GetPage(name: '/LayoutHome', page: () => LayoutHome())],
        localizationsDelegates: [
         GlobalCupertinoLocalizations.delegate,
