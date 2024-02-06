@@ -1,8 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../contraller/getX.dart';
+import '../../core/widget/app_text_form_filed.dart';
+import '../../core/widget/button.dart';
 
 class ButtonCreateAccountInLoginScrren extends StatelessWidget {
   const ButtonCreateAccountInLoginScrren({
@@ -139,79 +140,44 @@ class FormEmailAndPasswordInLoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: 70,
-
-        ),
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.blue[100],
-            borderRadius: BorderRadius.circular(66),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Column(
+        children: [
+          SizedBox(
+            height: 70,
           ),
-          width: 320,
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: TextFormField(
-            onChanged: (String value) {
-              print(value);
-            },
-            decoration: InputDecoration(
-                icon: Icon(
-                  Icons.person,
-                  color: Colors.black,
-                ),
-                hintText: "البريد الالكتروني",
-                border: InputBorder.none),
+          AppTextFormFiled(
+            hintText: 'البريد الالكتروني',
+            prefixIcon: Icon(Icons.email),
           ),
-        ),
-        SizedBox(
-          height: 23,
-        ),
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.blue[100],
-            borderRadius: BorderRadius.circular(66),
+          SizedBox(
+            height: 30,
           ),
-          width: 320,
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: GetBuilder<GetXCon>(
-            init: GetXCon(),
-            builder: (obGet) => TextFormField(
-              keyboardType: TextInputType.visiblePassword,
-              obscureText: obGet.isPassword,
-              onFieldSubmitted: (String value) {
-                print(value);
-              },
-              onChanged: (String value) {
-                print(value);
-              },
-              decoration: InputDecoration(
-                  suffix: InkWell(
+          GetBuilder<GetXCon>(
+              init: GetXCon(),
+              builder: (obGet) {
+                return AppTextFormFiled(
+                  hintText: 'كلمة المرور',
+                  prefixIcon: Icon(Icons.lock),
+                  obscureText: obGet.isPassword,
+                  suffixIcon: InkWell(
                       onTap: () {
                         obGet.changeIsPassword();
                       },
                       child: obGet.isPassword
                           ? Icon(
-                        Icons.visibility_off,
-                        color: Colors.black,
-                      )
+                              Icons.visibility_off,
+                              color: Colors.black,
+                            )
                           : Icon(
-                        Icons.visibility,
-                        color: Colors.black,
-                      )),
-                  icon: Icon(
-                    Icons.lock,
-                    color: Colors.black,
-                    size: 19,
-                  ),
-                  hintText: "كلمة المرور",
-                  // border: OutlineInputBorder(),
-                  border: InputBorder.none),
-            ),
-          ),
-        ),
-      ],
+                              Icons.visibility,
+                              color: Colors.black,
+                            )),
+                );
+              }),
+        ],
+      ),
     );
   }
 }
@@ -223,20 +189,7 @@ class ButtonInLoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {},
-      style: ButtonStyle(
-        backgroundColor:
-        MaterialStateProperty.all(Colors.blue[700]),
-        padding: MaterialStateProperty.all(
-            EdgeInsets.symmetric(horizontal: 130, vertical: 10)),
-        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(27))),
-      ),
-      child: Text(
-        "login",
-        style: TextStyle(fontSize: 24),
-      ),
+    return MainButton(name: 'LOGIN',onPressed: (){},
     );
   }
 }

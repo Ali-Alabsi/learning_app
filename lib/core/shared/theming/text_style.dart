@@ -72,6 +72,7 @@ class TextStyles {
     color: ProjectColors.blackColor,
   );
 
+
   static TextStyle font11GreyW300 = TextStyle(
     fontSize: 11,
     fontWeight: FontWeight.w300,

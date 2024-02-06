@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
 
-      home: Signup(),
+      home: Login(),
       // initialRoute: '/LayoutHome',
       getPages: [GetPage(name: '/LayoutHome', page: () => LayoutHome())],
        localizationsDelegates: [

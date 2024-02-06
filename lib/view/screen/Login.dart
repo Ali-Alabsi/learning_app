@@ -11,10 +11,8 @@ class Login extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: SizedBox(
-          width: double.infinity,
-          height: double.infinity,
-          // color: Colors.white,
+        body: Padding(
+          padding: EdgeInsetsDirectional.symmetric(horizontal: 20),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -32,7 +30,7 @@ class Login extends StatelessWidget {
                 ),
                 FormEmailAndPasswordInLoginScreen(),
                 SizedBox(
-                  height: 60,
+                  height: 40,
                 ),
                 ButtonInLoginScreen(),
                 Column(

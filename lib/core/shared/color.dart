@@ -9,6 +9,7 @@ class ProjectColors{
   static Color greyColors200 = Colors.grey.shade200;
   static Color amberColor =  Colors.amber;
   static Color greyColor =  Colors.grey;
+  static const Color moreGrayColor = Color.fromARGB(255, 235, 235, 235);
 }
 MaterialColor createMaterialColor(Color color) {
   List strengths = <double>[.05];

@@ -6,15 +6,12 @@ import '../../../core/shared/color.dart';
 import '../../../core/shared/theming/text_style.dart';
 import '../../widget/courses_widget.dart';
 import '../../widget/project_widget.dart';
-// >>>>>>> Stashed changes
 import '../chat/chat.dart';
 import '../chat/chat_inbox.dart';
 import '../courses/courses.dart';
 import '../home/home.dart';
 import '../project/project.dart';
 
-
-// =======
 class LayoutHome extends StatefulWidget {
   @override
   State<LayoutHome> createState() => _LayoutHomeState();
