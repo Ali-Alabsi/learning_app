@@ -17,7 +17,7 @@ class MainButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: margin ?? EdgeInsetsDirectional.symmetric(horizontal: 15),
+      margin: margin ?? EdgeInsetsDirectional.symmetric(horizontal: 30),
       clipBehavior: Clip.antiAliasWithSaveLayer,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),

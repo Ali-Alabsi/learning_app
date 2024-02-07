@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:learning_app/contraller/loyout_controller.dart';
 
 import '../../../core/shared/color.dart';
 import '../../../core/shared/theming/text_style.dart';
@@ -12,37 +14,22 @@ import '../courses/courses.dart';
 import '../home/home.dart';
 import '../project/project.dart';
 
-class LayoutHome extends StatefulWidget {
-  @override
-  State<LayoutHome> createState() => _LayoutHomeState();
-}
-
-class _LayoutHomeState extends State<LayoutHome> {
+class LayoutHome extends StatelessWidget {
+  LayoutController obGet = Get.put(LayoutController());
    // LayoutHome({Key? key}) : super(key: key);
-   int currentIndex = 0;
 
-   List Screen =[
-     Home(),
-     Courses(),
-     ChatInboxScreen( ),
-     Project(),
-     Home(),
-   ];
-
-   List<String> nameScreen=[
-     "ألرئسية",
-     "الكورسات",
-     "الدردشات",
-     "المشاريع",
-     "البروفايل"
-   ];
+  LayoutHome({super.key});
 
 // >>>>>>> Stashed changes
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBarLayout(nameScreen[currentIndex]),
-        body: Screen[currentIndex],
+        appBar: AppBarLayout(),
+        body: GetBuilder<LayoutController>(
+          builder: (controller){
+            return controller.Screen[controller.currentIndex];
+          },
+        ),
         bottomNavigationBar: Container(
             decoration: BoxDecoration(
               color: Colors.white,
@@ -59,9 +46,10 @@ class _LayoutHomeState extends State<LayoutHome> {
                   const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
               child: GNav(
                   onTabChange: (i) {
-                    setState(() {
-                      currentIndex = i;
-                   });
+                    obGet.changeCurrentIndex(i);
+                    // setState(() {
+
+                   // });
                   },
                   rippleColor: Colors.grey,
                   hoverColor: Colors.grey,
@@ -105,7 +93,7 @@ class _LayoutHomeState extends State<LayoutHome> {
 }
 
 
-AppBar AppBarLayout(String namePage) {
+AppBar AppBarLayout() {
   return AppBar(
     foregroundColor: ProjectColors.mainColor,
     elevation: 0,
@@ -113,9 +101,13 @@ AppBar AppBarLayout(String namePage) {
       'assets/images/app-icon.png',
       fit: BoxFit.cover,
     ),
-    title: Text(
-      '${namePage}',
-      style: TextStyles.font18BlackW500,
+    title: GetBuilder<LayoutController>(
+
+
+      builder:(controller) => Text(
+        '${controller.nameScreen[controller.currentIndex]}',
+        style: TextStyles.font18BlackW500,
+      ),
     ),
     actions: [
       Padding(

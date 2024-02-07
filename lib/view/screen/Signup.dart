@@ -1,9 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'dart:io';
 
 // import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:learning_app/core/widget/app_text_form_filed.dart';
+import 'package:learning_app/core/widget/button.dart';
+
+import 'Login.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -61,136 +66,38 @@ class _PickImageState extends State<Signup> {
 
                   ]
               ),
-              Column(
-                children: [const SizedBox(
-                  height: 70,
-                  width: double.infinity,
-                ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.blue[100],
-                      borderRadius: BorderRadius.circular(66),
-                    ),
-                    width: 320,
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: TextField(
-                        onChanged: (String value){
-                          print(value);
-                        },
-                        decoration: InputDecoration(
-                          icon: Icon(
-                            Icons.person,
-                            color: Colors.black,
-                            size: 23
-                          ),
-                          hintText: "اسم المستخدم :",
-                          border: InputBorder.none),
-                    ),
+              SizedBox(
+                height: 30,
+              ),
+              Form(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: Column(
+                    children: [
+                      AppTextFormFiled(hintText: 'اسم المستخدم' ,prefixIcon: Icon(Icons.account_circle ),),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      AppTextFormFiled(hintText: 'الايميل' ,prefixIcon: Icon(Icons.email ),),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      AppTextFormFiled(hintText: 'كلمة المرور ' ,prefixIcon: Icon(Icons.lock ),),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      AppTextFormFiled(hintText: ' رقم الهاتف' ,prefixIcon: Icon(Icons.phone ),),
+                      SizedBox(
+                        height: 20,
+                      ),
+
+                    ],
                   ),
-                ],
-              ),
-              const SizedBox(
-                height: 23,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.blue[100],
-                  borderRadius: BorderRadius.circular(66),
-                ),
-                width: 320,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: TextField(
-                  onChanged: (String value){
-                    print(value);
-                  },
-                  obscureText: true,
-                  decoration: InputDecoration(
-                      suffix: Icon(
-                        Icons.visibility,
-                        color: Colors.black,
-                        size: 20,
-                      ),
-                      icon: Icon(
-                        Icons.lock,
-                        color: Colors.black,
-                        size: 19,
-                      ),
-                      hintText: "كلمة المرور :",
-                      border: InputBorder.none),
-                ),
-              ),
-              const SizedBox(
-                height: 23,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.blue[100],
-                  borderRadius: BorderRadius.circular(66),
-                ),
-                width: 320,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: TextField(
-                  onChanged: (String value){
-                    print(value);
-                  },
-                  decoration: InputDecoration(
-                      icon: Icon(
-                        Icons.email,
-                        color: Colors.black,
-                        size: 20,
-                      ),
-                      hintText: "عنوان البريد الإلكتروني :",
-                      border: InputBorder.none),
-                ),
-              ),
-              const SizedBox(
-                height: 23,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.blue[100],
-                  borderRadius: BorderRadius.circular(66),
-                ),
-                width: 320,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: TextField(
-                  onChanged: (String value){
-                    print(value);
-                  },
-                  obscureText: true,
-                  decoration: InputDecoration(
-                      icon: Icon(
-                        Icons.phone,
-                        color: Colors.black,
-                        size: 20,
-                      ),
-                      hintText: "رقم الهاتف :",
-                      border: InputBorder.none),
-                ),
-              ),
-              const SizedBox(
-                height: 60,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, "/Login");
-                },
 
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.blue[700]),
-                  padding: MaterialStateProperty.all(
-                      const EdgeInsets.symmetric(horizontal: 130, vertical: 10)),
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(27))),
-                ),
-                child: const Text(
-                  "login",
-                  style: TextStyle(fontSize: 24),
                 ),
               ),
-
-
-
+              MainButton(name: 'انشاء حساب ' ,onPressed: (){},),
+              ButtonCreateAccountInLoginScreen()
             ],
           ),
         ),
@@ -281,3 +188,26 @@ class _PickImageState extends State<Signup> {
 }
 
 
+class ButtonCreateAccountInLoginScreen extends StatelessWidget {
+  const ButtonCreateAccountInLoginScreen({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          ' امتلك حساب ',
+          style: TextStyle(color: Colors.grey),
+        ),
+        TextButton(
+            onPressed: () {
+             Get.offNamed('/Login');
+            },
+            child: Text('تسجيل الدخول'))
+      ],
+    );
+  }
+}

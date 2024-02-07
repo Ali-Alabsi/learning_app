@@ -51,7 +51,7 @@ class Login extends StatelessWidget {
                     SizedBox(
                       height: 30,
                     ),
-                    ButtonCreateAccountInLoginScrren()
+                    ButtonCreateAccountInLoginScreen()
                   ],
                 )
               ],

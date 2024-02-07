@@ -5,8 +5,8 @@ import '../../contraller/getX.dart';
 import '../../core/widget/app_text_form_filed.dart';
 import '../../core/widget/button.dart';
 
-class ButtonCreateAccountInLoginScrren extends StatelessWidget {
-  const ButtonCreateAccountInLoginScrren({
+class ButtonCreateAccountInLoginScreen extends StatelessWidget {
+  const ButtonCreateAccountInLoginScreen({
     super.key,
   });
 
@@ -21,7 +21,7 @@ class ButtonCreateAccountInLoginScrren extends StatelessWidget {
         ),
         TextButton(
             onPressed: () {
-              Navigator.pushNamed(context, "/Signup");
+             Get.offNamed('/Signup');
             },
             child: Text('أنشاء حساب'))
       ],
@@ -141,7 +141,7 @@ class FormEmailAndPasswordInLoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(
         children: [
           SizedBox(
@@ -150,6 +150,7 @@ class FormEmailAndPasswordInLoginScreen extends StatelessWidget {
           AppTextFormFiled(
             hintText: 'البريد الالكتروني',
             prefixIcon: Icon(Icons.email),
+
           ),
           SizedBox(
             height: 30,
@@ -189,7 +190,10 @@ class ButtonInLoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MainButton(name: 'LOGIN',onPressed: (){},
+    return MainButton(name: 'LOGIN',onPressed: (){
+     Get.offNamed('/LayoutHome');
+    },
+      margin: EdgeInsetsDirectional.symmetric(horizontal: 20),
     );
   }
 }
