@@ -5,6 +5,7 @@ import 'core/shared/color.dart';
 import 'view/screen/Login.dart';
 import 'view/screen/Signup.dart';
 import 'view/screen/layout_home/layout_home.dart';
+import 'view/screen/profile/lang.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,8 +27,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
 
-      // home: Signup(),
-      initialRoute: '/Login',
+      home: Lang(),
+      // initialRoute: '/Login',
       getPages: [
         GetPage(name: '/LayoutHome', page: () => LayoutHome()),
         GetPage(name: '/Login', page: () => Login()),
