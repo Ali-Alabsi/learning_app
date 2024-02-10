@@ -51,12 +51,7 @@ class Login extends StatelessWidget {
                     SizedBox(
                       height: 30,
                     ),
-<<<<<<< Updated upstream
                     ButtonCreateAccountInLoginScreen()
-=======
-                   
-                    ButtonCreateAccountInLoginScrren()
->>>>>>> Stashed changes
                   ],
                 )
               ],

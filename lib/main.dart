@@ -9,7 +9,6 @@ import 'view/screen/layout_home/layout_home.dart';
 void main() {
   runApp(const MyApp());
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
