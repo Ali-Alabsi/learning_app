@@ -36,6 +36,11 @@ class TextStyles {
     color: ProjectColors.mainColor,
   );
 
+  static TextStyle font16mainColorBold = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    color: ProjectColors.mainColor,
+  );
   static TextStyle font18GreyW300 = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w300,

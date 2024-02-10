@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../view/screen/chat/chat_inbox.dart';
 import '../view/screen/courses/courses.dart';
 import '../view/screen/home/home.dart';
+import '../view/screen/profile/profile.dart';
 import '../view/screen/project/project.dart';
 
 class LayoutController extends GetxController{
@@ -13,7 +14,7 @@ class LayoutController extends GetxController{
     Courses(),
     ChatInboxScreen( ),
     Project(),
-    Home(),
+    Profile(),
   ];
 
   List<String> nameScreen=[
