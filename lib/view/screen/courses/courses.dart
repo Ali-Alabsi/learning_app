@@ -11,7 +11,6 @@ class Courses extends StatelessWidget {
           SearchInHomePage(),
           SizedBox(
             height: 15,
-
           ),
           WidgetCategoriesCourses(),
           SizedBox(height: 15,),

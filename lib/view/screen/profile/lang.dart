@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-
 import '../../../core/shared/theming/text_style.dart';
 
 class Lang extends StatelessWidget {
@@ -12,7 +11,6 @@ class Lang extends StatelessWidget {
       appBar: AppBar(
         leading: Icon(Icons.arrow_back),
         title: Text('اللغات', style: TextStyles.font18BlackBold,),
-        
       ),
       body: Container(
         padding: EdgeInsetsDirectional.symmetric(horizontal: 15 , vertical: 20),
