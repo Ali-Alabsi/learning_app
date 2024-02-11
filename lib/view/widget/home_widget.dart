@@ -134,7 +134,7 @@ class CoursesSclorWithDetailsWithCategories extends StatelessWidget {
                               SizedBox(width: 10,),
                               Center(child: Text('4.7' , style: TextStyles.font18GreyW300  ,textAlign: TextAlign.center,)),
                               Container (  width: 2, color: ProjectColors.greyColor, height: 15,margin: EdgeInsetsDirectional.symmetric(horizontal: 10, vertical: 2), ),
-                              Text('158 تحميل لهذة الدورة', style: TextStyles.font18GreyW300,)
+                              Expanded(child: Text('158 تحميل لهذة الدورة', style: TextStyles.font18GreyW300, maxLines: 1, overflow: TextOverflow.ellipsis,))
                             ],
                           ),
                           SizedBox(height: 5,),
