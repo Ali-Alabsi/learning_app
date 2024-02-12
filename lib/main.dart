@@ -8,6 +8,7 @@ import 'view/screen/Signup.dart';
 import 'view/screen/layout_home/layout_home.dart';
 import 'view/screen/profile/edit_profile.dart';
 import 'view/screen/profile/lang.dart';
+import 'view/screen/review.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: ProjectColors.mainColor),
           useMaterial3: true,
         ),
-        home: LayoutHome(),
+        home: Review(),
         // initialRoute: '/Login',
         getPages: [
           GetPage(name: '/LayoutHome', page: () => LayoutHome()),
