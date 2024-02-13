@@ -163,6 +163,7 @@ class FormEmailAndPasswordInLoginScreen extends StatelessWidget {
                   prefixIcon: Icon(Icons.lock),
                   obscureText: obGet.isPassword,
                   suffixIcon: InkWell(
+
                       onTap: () {
                         obGet.changeIsPassword();
                       },

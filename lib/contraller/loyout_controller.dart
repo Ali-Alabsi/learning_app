@@ -28,4 +28,5 @@ class LayoutController extends GetxController{
     currentIndex = i;
     update();
   }
+
 }

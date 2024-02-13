@@ -49,6 +49,9 @@ class ListItemAllInProfile extends StatelessWidget {
                   ),
                 )),
             ItemListInProfile(
+              onTap: (){
+                Get.toNamed('/LayoutHelpScreen');
+              },
               name: 'مركز المساعدة',
               icon: Icons.help_outline,
 

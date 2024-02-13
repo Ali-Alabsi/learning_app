@@ -2,10 +2,13 @@
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../../contraller/loyout_controller.dart';
 import '../../core/shared/color.dart';
 import '../../core/shared/theming/text_style.dart';
 
+LayoutController obGet= Get.put(LayoutController());
 class CoursesSclorWithDetailsWithCategories extends StatelessWidget {
   const CoursesSclorWithDetailsWithCategories({
     super.key,
@@ -22,9 +25,14 @@ class CoursesSclorWithDetailsWithCategories extends StatelessWidget {
               "ألدورات الاكثر شعبية",
               style: TextStyles.font18BlackW500,
             ),
-            Text(
-              'رؤية الجميع',
-              style: TextStyles.font18mainColorW100,
+            InkWell(
+              onTap: (){
+                obGet.changeCurrentIndex(1);
+              },
+              child: Text(
+                'رؤية الجميع',
+                style: TextStyles.font18mainColorW100,
+              ),
             )
           ],
         ),
@@ -166,9 +174,14 @@ class TeacherSclorWithDetails extends StatelessWidget {
               "كبار المرشدين",
               style: TextStyles.font18BlackW500,
             ),
-            Text(
-              'رؤية الجميع',
-              style: TextStyles.font18mainColorW100,
+            InkWell(
+              onTap: (){
+                Get.toNamed('/Teacher');
+              },
+              child: Text(
+                'رؤية الجميع',
+                style: TextStyles.font18mainColorW100,
+              ),
             )
           ],
         ),
@@ -229,9 +242,14 @@ class PackageSclorWithDetails extends StatelessWidget {
               "ألمشاريع الاكثر شعبية",
               style: TextStyles.font18BlackW500,
             ),
-            Text(
-              'رؤية الجميع',
-              style: TextStyles.font18mainColorW100,
+            InkWell(
+              onTap: (){
+                obGet.changeCurrentIndex(3);
+              },
+              child: Text(
+                'رؤية الجميع',
+                style: TextStyles.font18mainColorW100,
+              ),
             )
           ],
         ),
