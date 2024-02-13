@@ -174,9 +174,14 @@ class TeacherSclorWithDetails extends StatelessWidget {
               "كبار المرشدين",
               style: TextStyles.font18BlackW500,
             ),
-            Text(
-              'رؤية الجميع',
-              style: TextStyles.font18mainColorW100,
+            InkWell(
+              onTap: (){
+                Get.toNamed('/Teacher');
+              },
+              child: Text(
+                'رؤية الجميع',
+                style: TextStyles.font18mainColorW100,
+              ),
             )
           ],
         ),

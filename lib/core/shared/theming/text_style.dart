@@ -107,4 +107,19 @@ class TextStyles {
     color: ProjectColors.blackColor,
 
   );
+  ////////////////abubakr
+
+  static TextStyle font24BlackBold = TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+    color: ProjectColors.blackColor,
+
+  );
+
+  static TextStyle font28BlackBold = TextStyle(
+    fontSize: 28,
+    fontWeight: FontWeight.bold,
+    color: ProjectColors.blackColor,
+
+  );
 }
