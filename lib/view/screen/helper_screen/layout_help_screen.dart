@@ -15,7 +15,6 @@ class LayoutHelpScreen extends StatelessWidget {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            leading: Icon(Icons.arrow_back),
             title: Text(
               'مركز المساعده',
               style: TextStyles.font16BlackBold,

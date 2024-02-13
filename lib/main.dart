@@ -44,6 +44,7 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/Teacher', page: () => Teacher()),
           GetPage(name: '/EditProfile', page: () => EditProfile()),
           GetPage(name: '/ViewCoursesInTeacher', page: () => ViewCoursesInTeacher()),
+          GetPage(name: '/LayoutHelpScreen', page: () => LayoutHelpScreen()),
         ],
         localizationsDelegates: [
           GlobalCupertinoLocalizations.delegate,
