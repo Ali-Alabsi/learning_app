@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:learning_app/core/shared/color.dart';
-
 import '../../core/shared/theming/text_style.dart';
 import '../widget/review_widget.dart';
-
 class Review extends StatelessWidget {
   const Review({Key? key}) : super(key: key);
 
@@ -28,13 +24,9 @@ class Review extends StatelessWidget {
             ItemButtonSelectEvaluation(),
             SizedBox(height: 10,),
             ListItemReviewInReview()
-
           ],
         ),
       ),
     );
   }
-
-
 }
-

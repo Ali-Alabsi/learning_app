@@ -31,8 +31,8 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: ProjectColors.mainColor),
           useMaterial3: true,
         ),
-        home: Review(),
-        // initialRoute: '/Login',
+        // home: (),
+        initialRoute: '/Login',
         getPages: [
           GetPage(name: '/LayoutHome', page: () => LayoutHome()),
           GetPage(name: '/Login', page: () => Login()),
