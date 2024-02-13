@@ -41,6 +41,11 @@ class TextStyles {
     fontWeight: FontWeight.bold,
     color: ProjectColors.mainColor,
   );
+  static TextStyle font14mainColorBold = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+    color: ProjectColors.mainColor,
+  );
   static TextStyle font18GreyW300 = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w300,
@@ -67,6 +72,11 @@ class TextStyles {
 
   static TextStyle font14WhiteW500 = TextStyle(
     fontSize: 14,
+    fontWeight: FontWeight.w500,
+    color: ProjectColors.whiteColor,
+  );
+  static TextStyle font11WhiteW500 = TextStyle(
+    fontSize: 11,
     fontWeight: FontWeight.w500,
     color: ProjectColors.whiteColor,
   );

@@ -6,10 +6,10 @@ import 'contraller/profile_controller.dart';
 import 'core/shared/color.dart';
 import 'view/screen/Login.dart';
 import 'view/screen/Signup.dart';
+import 'view/screen/helper_screen/layout_help_screen.dart';
 import 'view/screen/layout_home/layout_home.dart';
 import 'view/screen/profile/edit_profile.dart';
 import 'view/screen/profile/lang.dart';
-import 'view/screen/review.dart';
 import 'view/screen/view_corses_in_teacher/view_corses_in_teacher.dart';
 
 void main() {
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: ProjectColors.mainColor),
           useMaterial3: true,
         ),
-        // home: (),
+        // home: LayoutHelpScreen(),
         initialRoute: '/Login',
         // home: ViewCoursesInTeacher(),
         getPages: [
@@ -55,4 +55,8 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
+
+
+
+
 }
