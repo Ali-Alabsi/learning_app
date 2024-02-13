@@ -54,7 +54,10 @@ class ListItemAllInProfile extends StatelessWidget {
 
             ),
             ItemListInProfile(
-              name: 'تواصل معنا',
+              onTap: (){
+                Get.toNamed('/PrivacyPolicy');
+              },
+              name: 'سياسة الخصوصية',
               icon: Icons.email_outlined,
             ),
             ItemListInProfile(
