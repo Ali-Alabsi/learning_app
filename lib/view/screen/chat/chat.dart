@@ -12,86 +12,88 @@ class ChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return SafeArea(
+      child: Scaffold(
 
-      body: Container(
-        // alignment: Alignment.center,
-        width: double.infinity,
-        padding: EdgeInsetsDirectional.symmetric(
-          vertical: 5,
-          horizontal: 10,
-        ),
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
+        body: Container(
+          // alignment: Alignment.center,
+          width: double.infinity,
+          padding: EdgeInsetsDirectional.symmetric(
+            vertical: 5,
+            horizontal: 10,
+          ),
+          child: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      myDateOfMessage(
+                        date: 'اليوم',
+                      ),
+                      myChatMessage(
+                        message: 'مرحبا بك، من فضلك أخبرنا كيف يمكننا مساعدتك.',
+                        txtStyle: TextStyles.font14WhiteW500,
+                      ),
+                      myChatMessage(
+                        message: 'كيف حالك؟ هل أنت بخير؟',
+                        txtStyle: TextStyles.font14WhiteW500,
+                      ),
+                      myChatMessage(
+                        message: 'ما هي الخدمات التي تقومون بتقديمها في شركتكم؟',
+                        txtStyle: TextStyles.font14BlackW500,
+                      ),
+                      myChatMessage(
+                        message: 'نعم، انا بخير',
+                        txtStyle: TextStyles.font14BlackW500,
+                      ),
+                      myChatMessage(
+                        message: 'شكرا لك ...',
+                        txtStyle: TextStyles.font14WhiteW500,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                height: 60,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadiusDirectional.circular(15),
+                ),
+                child: Row(
                   children: [
-                    myDateOfMessage(
-                      date: 'اليوم',
+                    Expanded(
+                      child: Form(
+                        child: myTextFormFieldInChat(
+                          hintText: 'اكتب رسالتك هنا',
+                        ),
+                      ),
                     ),
-                    myChatMessage(
-                      message: 'مرحبا بك، من فضلك أخبرنا كيف يمكننا مساعدتك.',
-                      txtStyle: TextStyles.font14WhiteW500,
+                    SizedBox(
+                      width: 10,
                     ),
-                    myChatMessage(
-                      message: 'كيف حالك؟ هل أنت بخير؟',
-                      txtStyle: TextStyles.font14WhiteW500,
-                    ),
-                    myChatMessage(
-                      message: 'ما هي الخدمات التي تقومون بتقديمها في شركتكم؟',
-                      txtStyle: TextStyles.font14BlackW500,
-                    ),
-                    myChatMessage(
-                      message: 'نعم، انا بخير',
-                      txtStyle: TextStyles.font14BlackW500,
-                    ),
-                    myChatMessage(
-                      message: 'شكرا لك ...',
-                      txtStyle: TextStyles.font14WhiteW500,
+                    Container(
+                      alignment: Alignment.center,
+                      width: 50,
+                      height: 150,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: ProjectColors.mainColor,
+                      ),
+                      child: myIconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.send,
+                          color: ProjectColors.whiteColor,
+                        ),
+                      ),
                     ),
                   ],
                 ),
               ),
-            ),
-            Container(
-              width: double.infinity,
-              height: 60,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadiusDirectional.circular(15),
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Form(
-                      child: myTextFormFieldInChat(
-                        hintText: 'اكتب رسالتك هنا',
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    width: 50,
-                    height: 150,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: ProjectColors.mainColor,
-                    ),
-                    child: myIconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.send,
-                        color: ProjectColors.whiteColor,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

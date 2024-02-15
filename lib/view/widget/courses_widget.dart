@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../core/shared/color.dart';
 import '../../core/shared/theming/text_style.dart';
 
@@ -15,48 +14,58 @@ class PageCoursesSclorWithCategories extends StatelessWidget {
               physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) => InkWell(
                   onTap: () {
-                    Get.bottomSheet(Container(
-                      height: 200,
-                      color: ProjectColors.whiteColor,
-                      child: Column(
-                        children: [
-                          CardCourses(),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              ElevatedButton(
-                                  onPressed: () {},
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: ProjectColors.mainColor,
-                                    maximumSize: Size(140, 40),
-                                    minimumSize: Size(140, 40),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15)
-                                    )
-                                  ),
-                                  child: Text('عرض التفاصيل' , style: TextStyles.font14WhiteW500,)
-                              ),
-                              ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: ProjectColors.greyColor,
-                                      maximumSize: Size(140, 40),
-                                      minimumSize: Size(140, 40),
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(15)
-                                      )
-                                  ),
-                                  onPressed: () {}, child: Text(' الغاء'  ,style: TextStyles.font14WhiteW500)),
-                            ],
-                          )
-                        ],
-                      ),
-                    ));
+                    Get.bottomSheet(WidgetInBottomSheet());
                   },
                   child: CardCourses()),
               separatorBuilder: (context, index) => SizedBox(
                     height: 15,
                   ),
               itemCount: 15)
+        ],
+      ),
+    );
+  }
+}
+
+class WidgetInBottomSheet extends StatelessWidget {
+  const WidgetInBottomSheet({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 220,
+      color: ProjectColors.whiteColor,
+      child: Column(
+        children: [
+          CardCourses(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: ProjectColors.mainColor,
+                      maximumSize: Size(140, 40),
+                      minimumSize: Size(140, 40),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15))),
+                  child: Text(
+                    'عرض التفاصيل',
+                    style: TextStyles.font14WhiteW500,
+                  )),
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: ProjectColors.greyColor,
+                      maximumSize: Size(140, 40),
+                      minimumSize: Size(140, 40),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15))),
+                  onPressed: () {},
+                  child: Text(' الغاء', style: TextStyles.font14WhiteW500)),
+            ],
+          )
         ],
       ),
     );

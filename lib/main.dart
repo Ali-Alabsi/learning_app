@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         // home: Privacy_policy(),
-        // home: LayoutHome(),
+        // home: ViewCoursesInTeacher(),
         initialRoute: '/Login',
         // initialRoute: '/Privacy_policy',
         getPages: [
@@ -46,6 +46,8 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/Teacher', page: () => Teacher()),
           GetPage(name: '/EditProfile', page: () => EditProfile()),
           GetPage(name: '/PrivacyPolicy', page: () => PrivacyPolicy()),
+          GetPage(name: '/LayoutHelpScreen', page: () => LayoutHelpScreen()),
+          GetPage(name: '/ViewCoursesInTeacher', page: () => ViewCoursesInTeacher()),
         ],
         localizationsDelegates: [
           GlobalCupertinoLocalizations.delegate,
