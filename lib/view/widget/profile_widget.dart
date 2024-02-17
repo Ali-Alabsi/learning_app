@@ -27,6 +27,9 @@ class ListItemAllInProfile extends StatelessWidget {
             ItemListInProfile(
               name: 'الاشعارات',
               icon: Icons.notifications_outlined,
+              onTap: (){
+                Get.toNamed('/Notifications');
+              },
             ),
             GetBuilder<ProfileController>(
               init: ProfileController(),
