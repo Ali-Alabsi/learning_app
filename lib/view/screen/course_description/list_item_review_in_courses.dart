@@ -1,12 +1,11 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-import '../../core/shared/color.dart';
-import '../../core/shared/theming/text_style.dart';
+import '../../../core/shared/color.dart';
+import '../../../core/shared/theming/text_style.dart';
 
-class ListItemReviewInReview extends StatelessWidget {
-  const ListItemReviewInReview({
+
+class ListItemReviewInCoursess extends StatelessWidget {
+  const ListItemReviewInCoursess({
     super.key,
   });
 
@@ -14,12 +13,8 @@ class ListItemReviewInReview extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.separated(
-          shrinkWrap: true,
-          itemBuilder: (context , index){
-            return   ItemReviewInReview();
-          }, separatorBuilder: (context , index){
-        return SizedBox(height: 10,);
-      }, itemCount: 10),
+          itemBuilder: (context , index)=>ItemReviewInReview(),
+          separatorBuilder:(context , index)=> SizedBox(height: 10,), itemCount: 10),
     );
   }
 }
@@ -117,110 +112,4 @@ class ItemReviewInReview extends StatelessWidget {
       ),
     );
   }
-}
-
-class ItemButtonSelectEvaluation extends StatelessWidget {
-  const ItemButtonSelectEvaluation({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [
-          ButtonSelectEvaluation(
-            name: 'ممتاز',
-            color: ProjectColors.mainColor,
-          ),
-          ButtonSelectEvaluation(
-            name: 'جيد',
-          ),
-          ButtonSelectEvaluation(
-            name: 'متوسط',
-          ),
-          ButtonSelectEvaluation(
-            name: 'قليل',
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class ViewStartInReview extends StatelessWidget {
-  const ViewStartInReview({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: RatingBar.builder(
-        initialRating: 3,
-        minRating: 1,
-        itemSize: 35,
-        direction: Axis.horizontal,
-        allowHalfRating: true,
-        itemCount: 5,
-        itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
-        itemBuilder: (context, _) => Icon(
-          Icons.star,
-          color: Colors.amber,
-        ),
-        onRatingUpdate: (rating) {
-          print(rating);
-        },
-      ),
-    );
-  }
-}
-
-class ButtonSelectEvaluation extends StatelessWidget {
-  final String name;
-  final Color? color;
-
-  const ButtonSelectEvaluation({
-    super.key,
-    required this.name,
-    this.color,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        SizedBox(
-          width: 15,
-        ),
-        ElevatedButton(
-          onPressed: () {},
-          child: Text(
-            '$name',
-            style: TextStyles.font14WhiteW500,
-          ),
-          style: ElevatedButton.styleFrom(
-              backgroundColor:
-              color ?? ProjectColors.mainColor.withOpacity(0.5),
-              maximumSize: Size(100, 35),
-              minimumSize: Size(100, 35),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              elevation: 0),
-        ),
-      ],
-    );
-  }
-}
-
-AppBar appBarReview() {
-  return AppBar(
-    leading: Icon(Icons.arrow_back),
-    title: Text(
-      'التعليقات',
-      style: TextStyles.font18BlackBold,
-    ),
-  );
 }

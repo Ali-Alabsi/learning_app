@@ -132,4 +132,13 @@ class TextStyles {
     color: ProjectColors.blackColor,
 
   );
+
+////////////////abubakr
+  static TextStyle font30mainColorBold = TextStyle(
+    fontSize: 30,
+    fontWeight: FontWeight.bold,
+    color: ProjectColors.mainColor,
+
+  );
+
 }
