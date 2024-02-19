@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:learning_app/core/shared/color.dart';
 import 'package:learning_app/core/shared/theming/text_style.dart';
 
-class Tutprials extends StatelessWidget {
-  const Tutprials({super.key});
+class TuitionInDetailsCourses extends StatelessWidget {
+  const TuitionInDetailsCourses({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,137 +45,15 @@ class Tutprials extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Container(
-                        height: 80,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.grey,
-                                  offset: Offset(1, 1),
-                                  spreadRadius: 1,
-                                  blurRadius: 2)
-                            ]),
-                        padding: EdgeInsets.all(8),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                // CircleAvatar(
-                                //   radius: 35,
-                                //   backgroundImage:
-                                //   AssetImage('assets/images/FlutterCourse.png'),
-                                // ),
-                                Container(
-                                  height: 100,
-                                  width: 62,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(50),
-                                    color: Colors.grey,
-                                  ),
-                                  child: Center(
-                                      child: Text(
-                                    '01',
-                                    style: TextStyle(
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.blueAccent),
-                                  )),
-                                ),
+                    ListView.separated(
+                      shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemBuilder: (context , index)=> ItemInTuition(icon: Icons.slow_motion_video_sharp, index: index,), separatorBuilder:  (context , index)=>
+                        SizedBox(
+                          height: 10,
+                        ), itemCount: 2),
 
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'احمد القباطي',
-                                      style: TextStyles.font20BlackW100,
-                                    ),
-                                    Text('مصمم واجهات انتر فيس',
-                                        style: TextStyles.font20BlackW100),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            Icon(
-                              Icons.slow_motion_video_sharp,
-                              color: Colors.blue,
-                              size: 35,
-                            ),
-                            // SizedBox(
-                            //   width: 107,
-                            // ),
-                          ],
-                        )),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                        height: 80,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.grey,
-                                  offset: Offset(1, 1),
-                                  spreadRadius: 1,
-                                  blurRadius: 2)
-                            ]),
-                        padding: EdgeInsets.all(8),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                Container(
-                                  height: 80,
-                                  width: 62,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(50),
-                                    color: Colors.grey,
-                                  ),
-                                  child: Center(
-                                      child: Text(
-                                    '02',
-                                    style: TextStyle(
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.blueAccent,
-                                    ),
-                                  )),
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'احمد القباطي',
-                                      style: TextStyles.font20BlackW100,
-                                    ),
-                                    Text('مصمم واجهات انتر فيس',
-                                        style: TextStyles.font20BlackW100),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            Icon(
-                              Icons.lock_outlined,
-                              color: Colors.grey,
-                              size: 35,
-                            ),
-                            // SizedBox(
-                            //   width: 107,
-                            // ),
-                          ],
-                        )),
-                    SizedBox(
-                      height: 10,
-                    ),
+
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10.0),
                       child: Row(
@@ -195,66 +74,7 @@ class Tutprials extends StatelessWidget {
                         shrinkWrap:true,
                         physics: NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) =>
-                            Container(
-                            height: 80,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.grey,
-                                      offset: Offset(1, 1),
-                                      spreadRadius: 1,
-                                      blurRadius: 2)
-                                ]),
-                            padding: EdgeInsets.all(8),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Container(
-                                      height: 80,
-                                      width: 62,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(50),
-                                        color: Colors.grey,
-                                      ),
-                                      child: Center(
-                                          child: Text(
-                                        '${index+3}',
-                                        style: TextStyle(
-                                          fontSize: 30,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.blueAccent,
-                                        ),
-                                      )),
-                                    ),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'احمد القباطي',
-                                          style: TextStyles.font20BlackW100,
-                                        ),
-                                        Text('مصمم واجهات انتر فيس',
-                                            style: TextStyles.font20BlackW100),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Icon(
-                                  Icons.lock_outlined,
-                                  color: Colors.grey,
-                                  size: 35,
-                                ),
-                                // SizedBox(
-                                //   width: 107,
-                                // ),
-                              ],
-                            )),
+                            ItemInTuition(index: index, icon: Icons.lock),
                         separatorBuilder: (context, index) => SizedBox(
                               height: 5,
                             ),
@@ -266,6 +86,77 @@ class Tutprials extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class ItemInTuition extends StatelessWidget {
+  final int index;
+  final IconData icon;
+  const ItemInTuition({
+    super.key, required this.index, required this.icon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 80,
+      child: Card(
+          elevation: 3,
+          child: Padding(
+            padding: EdgeInsets.all(8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    // CircleAvatar(
+                    //   radius: 35,
+                    //   backgroundImage:
+                    //   AssetImage('assets/images/FlutterCourse.png'),
+                    // ),
+                    Container(
+                      height: 60,
+                      width: 60,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: ProjectColors.greyColor300,
+                      ),
+                      child: Center(
+                          child: Text(
+                            '0${index+1}',
+                            style: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blueAccent),
+                          )),
+                    ),
+                    SizedBox(width: 10,),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'احمد القباطي',
+                          style: TextStyles.font20BlackW100,
+                        ),
+                        Text('مصمم واجهات انتر فيس',
+                            style: TextStyles.font20BlackW100),
+                      ],
+                    ),
+                  ],
+                ),
+                Icon(
+                  icon,
+                  color: Colors.blue,
+                  size: 35,
+                ),
+                // SizedBox(
+                //   width: 107,
+                // ),
+              ],
+            ),
+          )),
     );
   }
 }

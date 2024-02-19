@@ -9,6 +9,7 @@ class ProjectColors{
   static Color greyColors200 = Colors.grey.shade200;
   static Color amberColor =  Colors.amber;
   static Color greyColor =  Colors.grey;
+  static Color greyColor300 =  Colors.grey.shade300;
   static Color redColor =  Colors.red;
   static const Color moreGrayColor = Color.fromARGB(255, 235, 235, 235);
 }

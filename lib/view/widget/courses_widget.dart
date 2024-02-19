@@ -38,13 +38,17 @@ class WidgetInBottomSheet extends StatelessWidget {
       height: 220,
       color: ProjectColors.whiteColor,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
+
           CardCourses(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed('/CourseDescriptionScreen');
+                  },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: ProjectColors.mainColor,
                       maximumSize: Size(140, 40),
@@ -53,6 +57,8 @@ class WidgetInBottomSheet extends StatelessWidget {
                           borderRadius: BorderRadius.circular(15))),
                   child: Text(
                     'عرض التفاصيل',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyles.font14WhiteW500,
                   )),
               ElevatedButton(

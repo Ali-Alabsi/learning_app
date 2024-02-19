@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../core/shared/color.dart';
 import '../../../core/shared/theming/text_style.dart';
 
@@ -11,16 +10,14 @@ class ListItemReviewInCoursess extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.separated(
-          itemBuilder: (context , index)=>ItemReviewInReview(),
-          separatorBuilder:(context , index)=> SizedBox(height: 10,), itemCount: 10),
-    );
+    return ListView.separated(
+        itemBuilder: (context , index)=>ItemReviewInViewDetailsCourses(),
+        separatorBuilder:(context , index)=> SizedBox(height: 10,), itemCount: 10);
   }
 }
 
-class ItemReviewInReview extends StatelessWidget {
-  const ItemReviewInReview({
+class ItemReviewInViewDetailsCourses extends StatelessWidget {
+  const ItemReviewInViewDetailsCourses({
     super.key,
   });
 
@@ -29,6 +26,7 @@ class ItemReviewInReview extends StatelessWidget {
     return Container(
       height: 150,
       padding: EdgeInsetsDirectional.symmetric(horizontal: 10 ,vertical: 10),
+      margin: EdgeInsetsDirectional.only(top: 10),
       decoration: BoxDecoration(
           color: ProjectColors.whiteColor,
           boxShadow: [

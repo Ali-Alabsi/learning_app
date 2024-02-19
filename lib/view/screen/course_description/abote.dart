@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:learning_app/core/shared/theming/text_style.dart';
 
-class Abote extends StatelessWidget {
-  const Abote({super.key});
+class AboutInDetailsCourses extends StatelessWidget {
+  const AboutInDetailsCourses({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,10 +12,9 @@ class Abote extends StatelessWidget {
         //   BottomNavigationBarItem(icon: Icon(Icons.home),label: "home")
         // ],),
         // appBar: AppBar(),
-
         body: SingleChildScrollView(
           child: Container(
-            width: double.infinity,
+            // width: double.infinity,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -45,17 +44,19 @@ class Abote extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Icon(
-                            Icons.mark_unread_chat_alt_rounded,
-                            size: 30,
-                          ),
                           // SizedBox(
                           //   width: 107,
                           // ),
                           Row(
                             children: [
+                              CircleAvatar(
+                                radius: 40,
+                                backgroundImage:
+                                AssetImage('assets/images/FlutterCourse.png'),
+                              ),
+                              SizedBox(width: 10,),
                               Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
@@ -66,12 +67,12 @@ class Abote extends StatelessWidget {
                                       style: TextStyles.font20BlackW100),
                                 ],
                               ),
-                              CircleAvatar(
-                                radius: 40,
-                                backgroundImage:
-                                    AssetImage('assets/images/FlutterCourse.png'),
-                              ),
+
                             ],
+                          ),
+                          Icon(
+                            Icons.mark_unread_chat_alt_rounded,
+                            size: 30,
                           ),
                         ],
                       )),

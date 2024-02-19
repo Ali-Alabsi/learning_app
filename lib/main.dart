@@ -7,13 +7,10 @@ import 'core/shared/color.dart';
 import 'view/screen/Login.dart';
 import 'view/screen/Privacy_Policy.dart';
 import 'view/screen/Signup.dart';
-<<<<<<< Updated upstream
 import 'view/screen/notification.dart';
-=======
 import 'view/screen/course_description/abote.dart';
 import 'view/screen/course_description/course_description_Screen.dart';
 import 'view/screen/course_description/tutorials.dart';
->>>>>>> Stashed changes
 import 'view/screen/helper_screen/layout_help_screen.dart';
 import 'view/screen/layout_home/layout_home.dart';
 import 'view/screen/profile/edit_profile.dart';
@@ -41,15 +38,12 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: ProjectColors.mainColor),
           useMaterial3: true,
         ),
-<<<<<<< Updated upstream
         // home: Privacy_policy(),
         // home: Notifications(),
         initialRoute: '/Login',
-=======
-        home: CoursedescriptionScreen(),
+        // home: CourseDescriptionScreen(),
         // home: LayoutHome(),
         // initialRoute: '/Login',
->>>>>>> Stashed changes
         // initialRoute: '/Privacy_policy',
         getPages: [
           GetPage(name: '/LayoutHome', page: () => LayoutHome()),
@@ -60,12 +54,9 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/Teacher', page: () => Teacher()),
           GetPage(name: '/EditProfile', page: () => EditProfile()),
           GetPage(name: '/PrivacyPolicy', page: () => PrivacyPolicy()),
-<<<<<<< Updated upstream
           GetPage(name: '/LayoutHelpScreen', page: () => LayoutHelpScreen()),
           GetPage(name: '/ViewCoursesInTeacher', page: () => ViewCoursesInTeacher()),
-=======
-          GetPage(name: '/CoursedescriptionScreen', page: () => CoursedescriptionScreen()),
->>>>>>> Stashed changes
+          GetPage(name: '/CourseDescriptionScreen', page: () => CourseDescriptionScreen()),
         ],
         localizationsDelegates: [
           GlobalCupertinoLocalizations.delegate,
