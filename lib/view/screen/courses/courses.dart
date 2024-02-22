@@ -6,16 +6,23 @@ class Courses extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          SearchInHomePage(),
-          SizedBox(
-            height: 15,
-          ),
-          WidgetCategoriesCourses(),
-          SizedBox(height: 15,),
-          PageCoursesSclorWithCategories(),
-        ],
+      appBar: AppBar(
+        title: Text('كورسات التصميم'),
+
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        child: Column(
+          children: [
+            SearchInHomePage(),
+            SizedBox(
+              height: 15,
+            ),
+            WidgetCategoriesCourses(),
+            SizedBox(height: 15,),
+            PageCoursesSclorWithCategories(),
+          ],
+        ),
       ),
     );
   }

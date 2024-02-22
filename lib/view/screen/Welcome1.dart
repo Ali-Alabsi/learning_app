@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'Login.dart';
+import 'auth/Login.dart';
 // import 'pages/Login.dart';
 import 'package:get/get.dart';
 class Welcome1 extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../core/shared/theming/text_style.dart';
-import '../widget/login_widget.dart';
+import '../../../core/shared/theming/text_style.dart';
+import '../../widget/login_widget.dart';
 
 class Login extends StatelessWidget {
   Login({Key? key}) : super(key: key);

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../view/screen/chat/chat_inbox.dart';
 import '../view/screen/courses/courses.dart';
+import '../view/screen/courses/courses_category.dart';
 import '../view/screen/home/home.dart';
 import '../view/screen/profile/profile.dart';
 import '../view/screen/project/project.dart';
@@ -11,7 +12,7 @@ class LayoutController extends GetxController{
   int currentIndex = 0;
   List Screen =[
     Home(),
-    Courses(),
+    CoursesCategory(),
     ChatInboxScreen( ),
     Project(),
     Profile(),

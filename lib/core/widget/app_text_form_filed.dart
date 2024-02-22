@@ -14,7 +14,7 @@ class AppTextFormFiled extends StatelessWidget {
       this.suffixIcon,
         this.prefixIcon,
         this.keyboardType,
-        this.obscureText});
+        this.obscureText, this.validator});
 
   final EdgeInsetsGeometry? contentPadding;
   final String hintText;
@@ -26,11 +26,13 @@ class AppTextFormFiled extends StatelessWidget {
   final bool? obscureText;
   final Widget? prefixIcon;
   final TextInputType? keyboardType;
+  final String? Function(String?)? validator;
 
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      validator: validator,
       keyboardType: keyboardType?? TextInputType.text ,
       obscureText: obscureText??false,
       decoration: InputDecoration(
@@ -50,6 +52,17 @@ class AppTextFormFiled extends StatelessWidget {
                     color: ProjectColors.mainColor,
                   ),
                   borderRadius: BorderRadius.circular(16)),
+          errorBorder:   OutlineInputBorder(
+              borderSide: BorderSide(
+                color: ProjectColors.redColor,
+              ),
+              borderRadius: BorderRadius.circular(16)),
+          border:  OutlineInputBorder(
+              borderSide: BorderSide(
+                color: ProjectColors.mainColor,
+                width: 1
+              ),
+              borderRadius: BorderRadius.circular(16)),
           fillColor: fillColor ?? ProjectColors.mainColor.withOpacity(0.2),
           filled: true,
           suffixIcon: suffixIcon,

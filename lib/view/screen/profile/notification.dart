@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/shared/theming/text_style.dart';
+import '../../../core/shared/theming/text_style.dart';
 
 class Notifications extends StatelessWidget {
   const Notifications({Key? key}) : super(key: key);

@@ -7,7 +7,7 @@ bool isEmail(String email) {
 }
 
 bool isPassword(String password) {
-  // Define your password validation rules here
+  // Define your password val1idation rules here
   // For example, at least 8 characters long with at least one uppercase letter and one digit
   final passwordRegex = RegExp(r'^(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
   return passwordRegex.hasMatch(password);

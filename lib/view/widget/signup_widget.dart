@@ -6,31 +6,33 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../contraller/getX.dart';
 import '../../core/widget/app_text_form_filed.dart';
+import '../../core/widget/valid.dart';
+
+GetXCon obGet = Get.put(GetXCon());
 
 Future pickImageFromGallery(context) async {
   final returnImage =
-  await ImagePicker().pickImage(source: ImageSource.gallery);
+      await ImagePicker().pickImage(source: ImageSource.gallery);
   if (returnImage == null) return;
   // setState(() {
   //   selectedIMage = File(returnImage.path);
-    // _image = File(returnImage.path).readAsBytesSync();
+  // _image = File(returnImage.path).readAsBytesSync();
   // });
   Navigator.of(context).pop(); //close the model sheet
 }
 
 //Camera
-Future pickImageFromCamera(context , selectedIMage ,image) async {
-  final returnImage =
-  await ImagePicker().pickImage(source: ImageSource.camera);
+Future pickImageFromCamera(context, selectedIMage, image) async {
+  final returnImage = await ImagePicker().pickImage(source: ImageSource.camera);
   if (returnImage == null) return;
   // setState(() {
-    selectedIMage = File(returnImage.path);
-    image = File(returnImage.path).readAsBytesSync();
+  selectedIMage = File(returnImage.path);
+  image = File(returnImage.path).readAsBytesSync();
   // });
   Navigator.of(context).pop();
 }
-
 
 class ButtonCreateAccountInLoginScreen extends StatelessWidget {
   const ButtonCreateAccountInLoginScreen({
@@ -56,7 +58,7 @@ class ButtonCreateAccountInLoginScreen extends StatelessWidget {
   }
 }
 
-void showImagePickerOption(BuildContext context ,image ,selectedIMage) {
+void showImagePickerOption(BuildContext context, image, selectedIMage) {
   showModalBottomSheet(
       backgroundColor: Colors.blue[100],
       context: context,
@@ -89,7 +91,7 @@ void showImagePickerOption(BuildContext context ,image ,selectedIMage) {
                 Expanded(
                   child: InkWell(
                     onTap: () {
-                      pickImageFromCamera( context , selectedIMage ,image);
+                      pickImageFromCamera(context, selectedIMage, image);
                     },
                     child: const SizedBox(
                       child: Column(
@@ -111,7 +113,6 @@ void showImagePickerOption(BuildContext context ,image ,selectedIMage) {
       });
 }
 
-
 class FormInSignUp extends StatelessWidget {
   const FormInSignUp({
     super.key,
@@ -120,34 +121,63 @@ class FormInSignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: obGet.signUpForm,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30),
         child: Column(
           children: [
-            AppTextFormFiled(hintText: 'اسم المستخدم',
-              prefixIcon: Icon(Icons.account_circle),),
+            AppTextFormFiled(
+              validator: (value){
+                if(value ==''){
+                  return 'يجب ان يحتوي على اسم';
+                }
+              },
+              hintText: 'اسم المستخدم',
+              prefixIcon: Icon(Icons.account_circle),
+            ),
             SizedBox(
               height: 20,
             ),
             AppTextFormFiled(
-              hintText: 'الايميل', prefixIcon: Icon(Icons.email),),
+              keyboardType: TextInputType.emailAddress,
+              validator: (value){
+                if(isEmail(value!) ==false){
+                  return 'هذا الايميل غير صحيح';
+                }
+              },
+              hintText: 'الايميل',
+              prefixIcon: Icon(Icons.email),
+            ),
             SizedBox(
               height: 20,
             ),
-            AppTextFormFiled(hintText: 'كلمة المرور ',
-              prefixIcon: Icon(Icons.lock),),
+            AppTextFormFiled(
+              validator: (value){
+                if(isPassword(value!) ==false){
+                  return 'كلمة المرور ضعية';
+                }
+              },
+              hintText: 'كلمة المرور ',
+              prefixIcon: Icon(Icons.lock),
+            ),
             SizedBox(
               height: 20,
             ),
-            AppTextFormFiled(hintText: ' رقم الهاتف',
-              prefixIcon: Icon(Icons.phone),),
+            AppTextFormFiled(
+              keyboardType: TextInputType.phone,
+              validator: (value){
+                if(value == ''){
+                  return 'يجب الا يكون الحقل فارغ';
+                }
+              },
+              hintText: ' رقم الهاتف',
+              prefixIcon: Icon(Icons.phone),
+            ),
             SizedBox(
               height: 20,
             ),
-
           ],
         ),
-
       ),
     );
   }

@@ -4,6 +4,9 @@ import 'package:get/get.dart';
 import '../../contraller/getX.dart';
 import '../../core/widget/app_text_form_filed.dart';
 import '../../core/widget/button.dart';
+import '../../core/widget/valid.dart';
+
+GetXCon obGet = Get.put(GetXCon());
 
 class ButtonCreateAccountInLoginScreen extends StatelessWidget {
   const ButtonCreateAccountInLoginScreen({
@@ -140,45 +143,59 @@ class FormEmailAndPasswordInLoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Column(
-        children: [
-          SizedBox(
-            height: 70,
-          ),
-          AppTextFormFiled(
-            hintText: 'البريد الالكتروني',
-            prefixIcon: Icon(Icons.email),
+      child: Form(
+        key: obGet.loginForm,
+        child: Column(
+          children: [
+            SizedBox(
+              height: 70,
+            ),
+            AppTextFormFiled(
+              keyboardType: TextInputType.emailAddress,
+              validator: (value){
+                if(isEmail(value!) ==false){
+                  return 'هذا الايميل غير صحيح';
+                }
+              },
+              hintText: 'البريد الالكتروني',
+              prefixIcon: Icon(Icons.email),
 
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          GetBuilder<GetXCon>(
-              init: GetXCon(),
-              builder: (obGet) {
-                return AppTextFormFiled(
-                  hintText: 'كلمة المرور',
-                  prefixIcon: Icon(Icons.lock),
-                  obscureText: obGet.isPassword,
-                  suffixIcon: InkWell(
-
-                      onTap: () {
-                        obGet.changeIsPassword();
-                      },
-                      child: obGet.isPassword
-                          ? Icon(
-                              Icons.visibility_off,
-                              color: Colors.black,
-                            )
-                          : Icon(
-                              Icons.visibility,
-                              color: Colors.black,
-                            )),
-                );
-              }),
-        ],
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            GetBuilder<GetXCon>(
+                init: GetXCon(),
+                builder: (obGet) {
+                  return AppTextFormFiled(
+                    validator: (value){
+                      if(isPassword(value!) ==false){
+                        return 'كلمة المرور ضعية';
+                      }
+                    },
+                    hintText: 'كلمة المرور',
+                    prefixIcon: Icon(Icons.lock),
+                    obscureText: obGet.isPassword,
+                    suffixIcon: InkWell(
+                        onTap: () {
+                          obGet.changeIsPassword();
+                        },
+                        child: obGet.isPassword
+                            ? Icon(
+                                Icons.visibility_off,
+                                color: Colors.black,
+                              )
+                            : Icon(
+                                Icons.visibility,
+                                color: Colors.black,
+                              )),
+                  );
+                }),
+          ],
+        ),
       ),
     );
   }
@@ -191,8 +208,12 @@ class ButtonInLoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return MainButton(name: 'LOGIN',onPressed: (){
-     Get.offNamed('/LayoutHome');
+      if(obGet.loginForm.currentState!.validate()){
+        Get.offNamed('/LayoutHome');
+      }
+
     },
       margin: EdgeInsetsDirectional.symmetric(horizontal: 20),
     );

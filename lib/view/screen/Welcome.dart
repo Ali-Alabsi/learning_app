@@ -3,18 +3,17 @@ import 'package:flutter_svg/svg.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:get/get.dart';
 
-import 'Login.dart';
 class Welcome extends StatelessWidget {
    Welcome({Key? key}) : super(key: key);
   final controller = PageController();
   void dispose() {
     controller.dispose();
-
   }
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return SafeArea(
-
       child: Scaffold(
         body: Container(
           child: PageView(
@@ -25,9 +24,11 @@ class Welcome extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Padding(
+              Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Image.asset("assets/images/Webinar-bro.png" ,fit: BoxFit.cover,),
+                height: height * .5,
+                width: width ,
+                child: SvgPicture.asset('assets/svg/on_boarding1.svg' ,fit: BoxFit.cover)
               ),
 
               Text(
@@ -99,9 +100,11 @@ class Welcome extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Image.asset("assets/images/Webinar-bro.png" ,fit: BoxFit.cover,),
+              Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  height: height * .5,
+                  width: width ,
+                  child: SvgPicture.asset('assets/svg/on_boarding2.svg' ,fit: BoxFit.cover)
               ),
 
               Text(
@@ -173,9 +176,11 @@ class Welcome extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Image.asset("assets/images/Webinar-bro.png" ,fit: BoxFit.cover,),
+              Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  height: height * .5,
+                  width: width ,
+                  child: SvgPicture.asset('assets/svg/on_boarding3.svg' ,fit: BoxFit.cover)
               ),
 
               Text(
