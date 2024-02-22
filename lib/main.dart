@@ -24,6 +24,7 @@ import 'view/screen/video_player/video_player.dart';
 import 'view/screen/view_corses_in_teacher/view_corses_in_teacher.dart';
 
 void main() {
+  
   runApp(const MyApp());
 }
 
