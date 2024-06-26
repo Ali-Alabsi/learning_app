@@ -22,13 +22,10 @@ class MainButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
       ),
       child: MaterialButton(
-
-
         color: ProjectColors.mainColor,
         height: 60,
         minWidth: double.infinity,
         onPressed: onPressed,
-
         child: Text(
           name,
           style: TextStyles.font18WhiteW500,

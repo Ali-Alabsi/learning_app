@@ -3,11 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:learning_app/contraller/profile_contrller.dart';
 import 'package:learning_app/core/shared/color.dart';
 import '../../../contraller/profile_controller.dart';
 import '../../../core/shared/theming/text_style.dart';
-import '../../widget/profile_widget.dart';
+import '../../widget/profile/profile_widget.dart';
 
 class Profile extends StatelessWidget {
   const Profile({Key? key}) : super(key: key);

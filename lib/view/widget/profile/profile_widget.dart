@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../contraller/profile_controller.dart';
-import '../../core/shared/color.dart';
-import '../../core/shared/theming/text_style.dart';
+import '../../../contraller/profile_controller.dart';
+import '../../../core/shared/color.dart';
+import '../../../core/shared/theming/text_style.dart';
 
 class ListItemAllInProfile extends StatelessWidget {
   const ListItemAllInProfile({

@@ -15,9 +15,10 @@ class AppTextFormFiled extends StatelessWidget {
       this.suffixIcon,
         this.prefixIcon,
         this.keyboardType,
-        this.obscureText, this.validator, this.controller});
+        this.obscureText, this.validator, this.controller,  this.noSpaceTextInputFormatter =true});
 
   final EdgeInsetsGeometry? contentPadding;
+  final bool noSpaceTextInputFormatter;
   final String hintText;
   final TextStyle? hintStyle;
   final InputBorder? enabledBorder;
@@ -36,7 +37,7 @@ class AppTextFormFiled extends StatelessWidget {
     return TextFormField(
       controller: controller,
       validator: validator,
-      inputFormatters: [NoSpaceTextInputFormatter()],
+      inputFormatters: [noSpaceTextInputFormatter ?NoSpaceTextInputFormatter() : SpaceTextInputFormatter() ],
       keyboardType: keyboardType?? TextInputType.text ,
       obscureText: obscureText??false,
       decoration: InputDecoration(
@@ -83,6 +84,15 @@ class NoSpaceTextInputFormatter extends TextInputFormatter {
     if (newValue.text.contains(' ')) {
       return oldValue;
     }
+    return newValue;
+  }
+}
+
+
+class SpaceTextInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+
     return newValue;
   }
 }
