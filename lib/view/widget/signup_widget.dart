@@ -5,12 +5,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:learning_app/core/shared/controller.dart';
 
 import '../../contraller/getX.dart';
+import '../../contraller/sign_up_controller.dart';
+import '../../core/dependency_injection/dependency_injection.dart';
 import '../../core/widget/app_text_form_filed.dart';
 import '../../core/widget/valid.dart';
 
-GetXCon obGet = Get.put(GetXCon());
+
+// GetXCon obGet = Get.put(Sin());
 
 Future pickImageFromGallery(context) async {
   final returnImage =
@@ -50,7 +54,7 @@ class ButtonCreateAccountInLoginScreen extends StatelessWidget {
         ),
         TextButton(
             onPressed: () {
-              Get.offNamed('/Login');
+              Get.offAllNamed('/Login');
             },
             child: Text('تسجيل الدخول'))
       ],
@@ -120,65 +124,74 @@ class FormInSignUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: obGet.signUpForm,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
-        child: Column(
-          children: [
-            AppTextFormFiled(
-              validator: (value){
-                if(value ==''){
-                  return 'يجب ان يحتوي على اسم';
-                }
-              },
-              hintText: 'اسم المستخدم',
-              prefixIcon: Icon(Icons.account_circle),
+    return GetBuilder<SingUpController>(
+      init: SingUpController(),
+      builder: (controller) {
+        return Form(
+          key: controller.signUpForm,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: Column(
+              children: [
+                AppTextFormFiled(
+                  controller: MyController.nameSignup,
+                  validator: (value){
+                    if(value ==''){
+                      return 'يجب ان يحتوي على اسم';
+                    }
+                  },
+                  hintText: 'اسم المستخدم',
+                  prefixIcon: Icon(Icons.account_circle),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                AppTextFormFiled(
+                  controller: MyController.emailSignup,
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value){
+                    if(isEmail(value!) ==false){
+                      return 'هذا الايميل غير صحيح';
+                    }
+                  },
+                  hintText: 'الايميل',
+                  prefixIcon: Icon(Icons.email),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                AppTextFormFiled(
+                  controller: MyController.passwordSignup,
+                  validator: (value){
+                    if(isPassword(value!) ==false){
+                      return 'كلمة المرور ضعية';
+                    }
+                  },
+                  hintText: 'كلمة المرور ',
+                  prefixIcon: Icon(Icons.lock),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                AppTextFormFiled(
+                  controller: MyController.phoneSignup,
+                  keyboardType: TextInputType.phone,
+                  validator: (value){
+                    if(value == ''){
+                      return 'يجب الا يكون الحقل فارغ';
+                    }
+                  },
+                  hintText: ' رقم الهاتف',
+                  prefixIcon: Icon(Icons.phone),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+              ],
             ),
-            SizedBox(
-              height: 20,
-            ),
-            AppTextFormFiled(
-              keyboardType: TextInputType.emailAddress,
-              validator: (value){
-                if(isEmail(value!) ==false){
-                  return 'هذا الايميل غير صحيح';
-                }
-              },
-              hintText: 'الايميل',
-              prefixIcon: Icon(Icons.email),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            AppTextFormFiled(
-              validator: (value){
-                if(isPassword(value!) ==false){
-                  return 'كلمة المرور ضعية';
-                }
-              },
-              hintText: 'كلمة المرور ',
-              prefixIcon: Icon(Icons.lock),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            AppTextFormFiled(
-              keyboardType: TextInputType.phone,
-              validator: (value){
-                if(value == ''){
-                  return 'يجب الا يكون الحقل فارغ';
-                }
-              },
-              hintText: ' رقم الهاتف',
-              prefixIcon: Icon(Icons.phone),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      }
     );
   }
 }

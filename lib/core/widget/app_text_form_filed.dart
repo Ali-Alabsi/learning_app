@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../shared/color.dart';
 import '../shared/theming/text_style.dart';
 
@@ -14,7 +15,7 @@ class AppTextFormFiled extends StatelessWidget {
       this.suffixIcon,
         this.prefixIcon,
         this.keyboardType,
-        this.obscureText, this.validator});
+        this.obscureText, this.validator, this.controller});
 
   final EdgeInsetsGeometry? contentPadding;
   final String hintText;
@@ -27,12 +28,15 @@ class AppTextFormFiled extends StatelessWidget {
   final Widget? prefixIcon;
   final TextInputType? keyboardType;
   final String? Function(String?)? validator;
+  final TextEditingController? controller;
 
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       validator: validator,
+      inputFormatters: [NoSpaceTextInputFormatter()],
       keyboardType: keyboardType?? TextInputType.text ,
       obscureText: obscureText??false,
       decoration: InputDecoration(
@@ -70,5 +74,15 @@ class AppTextFormFiled extends StatelessWidget {
       ),
 
     );
+  }
+}
+
+class NoSpaceTextInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+    if (newValue.text.contains(' ')) {
+      return oldValue;
+    }
+    return newValue;
   }
 }

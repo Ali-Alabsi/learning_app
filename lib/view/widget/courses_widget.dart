@@ -1,26 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:learning_app/core/dependency_injection/dependency_injection.dart';
 import '../../core/shared/color.dart';
 import '../../core/shared/theming/text_style.dart';
+import '../screen/course_description/course_description_Screen.dart';
 
 class PageCoursesSclorWithCategories extends StatelessWidget {
+  final String categoryId;
+
+  const PageCoursesSclorWithCategories({super.key, required this.categoryId});
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView(
         children: [
-          ListView.separated(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) => InkWell(
-                  onTap: () {
-                    Get.bottomSheet(WidgetInBottomSheet());
-                  },
-                  child: CardCourses()),
-              separatorBuilder: (context, index) => SizedBox(
-                    height: 15,
-                  ),
-              itemCount: 15)
+          FutureBuilder(
+              future: DependencyInjection.obGetCourses.dataCourses
+                  .where('categories', isEqualTo: categoryId)
+                  .get(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data!.docs.length > 0) {
+                      return ListView.separated(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) => InkWell(
+                              onTap: () {
+                                Get.bottomSheet(WidgetInBottomSheet(
+                                  snapshot: snapshot,
+                                  index: index,
+                                ));
+
+                              },
+                              child: CardCourses(
+                                index: index,
+                                snapshot: snapshot,
+                              )),
+                          separatorBuilder: (context, index) => SizedBox(
+                                height: 15,
+                              ),
+                          itemCount: snapshot.data!.docs.length);
+                    } else {
+                      return Text('لا يوجد كورسات في هذا القسم ');
+                    }
+                  } else {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                } else {
+                  return Center(child: CircularProgressIndicator());
+                }
+              })
         ],
       ),
     );
@@ -28,8 +59,13 @@ class PageCoursesSclorWithCategories extends StatelessWidget {
 }
 
 class WidgetInBottomSheet extends StatelessWidget {
+  final snapshot;
+  final int index;
+
   const WidgetInBottomSheet({
     super.key,
+    required this.snapshot,
+    required this.index,
   });
 
   @override
@@ -40,14 +76,24 @@ class WidgetInBottomSheet extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-
-          CardCourses(),
+          CardCourses(
+            index: index,
+            snapshot: snapshot,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               ElevatedButton(
                   onPressed: () {
-                    Get.toNamed('/CourseDescriptionScreen');
+                    Get.to(CourseDescriptionScreen(
+                      courseId: snapshot.data!.docs[index].id,
+                      details: snapshot.data!.docs[index]['details'],
+                      teacherId: snapshot.data!.docs[index]['teacher_id'],
+                    ))?.then((value) => (){
+                      // Get.back();
+                      print('ali');
+                    });
+
                   },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: ProjectColors.mainColor,
@@ -68,7 +114,7 @@ class WidgetInBottomSheet extends StatelessWidget {
                       minimumSize: Size(140, 40),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15))),
-                  onPressed: () {},
+                  onPressed: () { Get.back();},
                   child: Text(' الغاء', style: TextStyles.font14WhiteW500)),
             ],
           )
@@ -79,8 +125,13 @@ class WidgetInBottomSheet extends StatelessWidget {
 }
 
 class CardCourses extends StatelessWidget {
+  final snapshot;
+  final int index;
+
   const CardCourses({
     super.key,
+    required this.snapshot,
+    required this.index,
   });
 
   @override
@@ -106,8 +157,8 @@ class CardCourses extends StatelessWidget {
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 decoration:
                     BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                child: Image.asset(
-                  'assets/images/FigmaCourses.jpg',
+                child: Image.network(
+                  snapshot.data!.docs[index].data()['image'],
                   fit: BoxFit.cover,
                 )),
           ),
@@ -117,6 +168,7 @@ class CardCourses extends StatelessWidget {
           Expanded(
               flex: 5,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
                     height: 5,
@@ -138,7 +190,7 @@ class CardCourses extends StatelessWidget {
                     height: 5,
                   ),
                   Text(
-                    'دورة مجانية لتعلم التصميم ب استخدام برنامج (Figma)',
+                    snapshot.data!.docs[index].data()['name'],
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyles.font18BlackW500,
@@ -149,7 +201,7 @@ class CardCourses extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        "50 \$",
+                        "${snapshot.data!.docs[index].data()['price']} \$",
                         style: TextStyles.font18mainColorBold,
                       ),
                       SizedBox(
@@ -178,7 +230,9 @@ class CardCourses extends StatelessWidget {
                       ),
                       Center(
                           child: Text(
-                        '4.7',
+                        snapshot.data!.docs[index]
+                            .data()['evaluation']
+                            .toString(),
                         style: TextStyles.font18GreyW300,
                         textAlign: TextAlign.center,
                       )),
@@ -190,7 +244,7 @@ class CardCourses extends StatelessWidget {
                             horizontal: 10, vertical: 2),
                       ),
                       Text(
-                        '158 تحميل لهذة الدورة',
+                        '${snapshot.data!.docs[index].data()['counter']} تحميل لهذة الدورة',
                         style: TextStyles.font18GreyW300,
                       )
                     ],

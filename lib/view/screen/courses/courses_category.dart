@@ -4,7 +4,9 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:learning_app/core/shared/color.dart';
 import 'package:learning_app/core/shared/theming/text_style.dart';
 
+import '../../../core/dependency_injection/dependency_injection.dart';
 import '../../widget/courses_widget.dart';
+import 'courses.dart';
 
 class CoursesCategory extends StatelessWidget {
   const CoursesCategory({Key? key}) : super(key: key);
@@ -22,7 +24,8 @@ class CoursesCategory extends StatelessWidget {
             ),
             Expanded(
               child: GridView.builder(
-                itemCount: 10,
+                itemCount: DependencyInjection
+                    .obGetCourses.listCategoriesCourses.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     mainAxisSpacing: 20,
@@ -32,14 +35,19 @@ class CoursesCategory extends StatelessWidget {
                     child: Column(
                       children: [
                         InkWell(
-                          onTap:(){
-                            Get.toNamed('/Courses');
+                          onTap: () {
+                            Get.to(Courses(
+                              categoryId:
+                                  '${DependencyInjection.obGetCourses.listCategoriesCourses[index].id}',
+                              categoryName: '${DependencyInjection.obGetCourses.listCategoriesCourses[index]['name']}',
+                            ));
                           },
                           child: Container(
-                            child: Image.asset(
-                              'assets/images/FigmaCourses.jpg',
+                            child: Image.network(
+                              '${DependencyInjection.obGetCourses.listCategoriesCourses[index]["image"]}',
                               fit: BoxFit.cover,
                               height: 120,
+                              width: double.infinity,
                             ),
                             margin: EdgeInsetsDirectional.symmetric(
                                 horizontal: 15, vertical: 10),
@@ -49,7 +57,7 @@ class CoursesCategory extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'كورسات التصميم',
+                          '${DependencyInjection.obGetCourses.listCategoriesCourses[index]["name"]}',
                           style: TextStyles.font16mainColorBold,
                         )
                       ],

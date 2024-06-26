@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import '../../widget/courses_widget.dart';
 
 class Courses extends StatelessWidget {
-  const Courses({Key? key}) : super(key: key);
+  final String categoryId ;
+  final String categoryName;
+  const Courses({Key? key, required this.categoryId, required this.categoryName}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('كورسات التصميم'),
+        title: Text('$categoryName'),
 
       ),
       body: Padding(
@@ -18,9 +20,9 @@ class Courses extends StatelessWidget {
             SizedBox(
               height: 15,
             ),
-            WidgetCategoriesCourses(),
+            // WidgetCategoriesCourses(),
             SizedBox(height: 15,),
-            PageCoursesSclorWithCategories(),
+            PageCoursesSclorWithCategories(categoryId: categoryId),
           ],
         ),
       ),

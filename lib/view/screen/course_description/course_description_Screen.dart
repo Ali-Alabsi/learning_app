@@ -3,12 +3,15 @@ import 'package:get/get.dart';
 import '../../../contraller/deatials_courses_controller.dart';
 import '../../../core/shared/theming/text_style.dart';
 import '../../widget/view_details_in_courses_widget.dart';
-import 'abote.dart';
+import 'about_in_details_courses.dart';
 import 'list_item_review_in_courses.dart';
-import 'tutorials.dart';
+import 'lessons_in_details_courses.dart';
 
 class CourseDescriptionScreen extends StatelessWidget {
-  CourseDescriptionScreen({super.key});
+  final String courseId;
+  final String teacherId;
+  final String details;
+  CourseDescriptionScreen({super.key, required this.courseId, required this.teacherId, required this.details});
   DetailsCoursesController ob = Get.put(DetailsCoursesController());
   @override
   Widget build(BuildContext context) {
@@ -22,18 +25,18 @@ class CourseDescriptionScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Column(
               children: [
-                InformationInDetailsCoursesPage(),
+                InformationInDetailsCoursesPage(courseId: courseId,),
                 TabBarInDetailsCourses(ob: ob),
                     Expanded(
                       child: GetBuilder<DetailsCoursesController>(
                           init: DetailsCoursesController(),
                           builder: (controller) {
                             if( controller.numberPage ==0){
-                            return  ListItemReviewInCoursess();
+                            return  ListItemReviewInCoursess(courseId: courseId,);
                             }else if (controller.numberPage == 1){
-                              return TuitionInDetailsCourses();
+                              return LessonsInDetailsCourses(courseId: courseId,);
                             }else if(controller.numberPage ==2 ){
-                            return  AboutInDetailsCourses();
+                            return  AboutInDetailsCourses( details: details, teacherId: teacherId,);
                             }else{
                               return SizedBox();
                             }
@@ -44,6 +47,7 @@ class CourseDescriptionScreen extends StatelessWidget {
             ),
           ),
         ),
+
 
         // SizedBox(height: 20,),
       ],

@@ -1,10 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:learning_app/view/screen/auth/Login.dart';
 
 import '../../contraller/loyout_controller.dart';
 import '../../core/shared/color.dart';
 import '../../core/shared/theming/text_style.dart';
+import '../../core/widget/awesome_dialog.dart';
 
 class bottomNavigationBarCode extends StatelessWidget {
   const bottomNavigationBarCode({
@@ -30,8 +33,7 @@ class bottomNavigationBarCode extends StatelessWidget {
             child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
           child: GetBuilder<LayoutController>(
-
-            builder:(controller)=> GNav(
+            builder: (controller) => GNav(
                 onTabChange: (i) {
                   obGet.changeCurrentIndex(i);
                   // setState(() {
@@ -80,7 +82,7 @@ class bottomNavigationBarCode extends StatelessWidget {
   }
 }
 
-AppBar AppBarLayout() {
+AppBar AppBarLayout(context) {
   return AppBar(
     foregroundColor: ProjectColors.mainColor,
     elevation: 0,
@@ -95,9 +97,17 @@ AppBar AppBarLayout() {
       ),
     ),
     actions: [
-      Padding(
-        padding: const EdgeInsetsDirectional.only(end: 15),
-        child: Icon(Icons.exit_to_app_rounded),
+      InkWell(
+        onTap: () {
+          AwesomeDialogFunction.awesomeDialogQuestion(context, 'تنبية', 'هل تريد تسجيل الخروج ؟', () {
+            Get.offAll(Login());
+            FirebaseAuth.instance.signOut();
+          }, () {});
+        },
+        child: Padding(
+          padding: const EdgeInsetsDirectional.only(end: 15),
+          child: Icon(Icons.exit_to_app_rounded),
+        ),
       )
     ],
   );

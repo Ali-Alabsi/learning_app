@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:learning_app/contraller/login_controller.dart';
 import '../../../core/shared/theming/text_style.dart';
 import '../../widget/login_widget.dart';
 
@@ -16,6 +18,7 @@ class Login extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
+
                 Column(
                   children: [
                     SizedBox(
@@ -32,7 +35,19 @@ class Login extends StatelessWidget {
                 SizedBox(
                   height: 40,
                 ),
-                ButtonInLoginScreen(),
+                GetBuilder<LoginController>(
+                  init: LoginController(),
+                  builder: (controller) {
+                    if(controller.isLoadingLogin==true){
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }else{
+                      return ButtonInLoginScreen( controller: controller, buildContext: context,);
+                    }
+
+                  }
+                ),
                 Column(
                   children: [
                     SizedBox(

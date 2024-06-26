@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:learning_app/contraller/login_controller.dart';
+import 'package:learning_app/core/shared/controller.dart';
+import 'package:learning_app/core/widget/awesome_dialog.dart';
 import '../../contraller/getX.dart';
+import '../../contraller/sign_up_controller.dart';
+import '../../core/dependency_injection/dependency_injection.dart';
 import '../../core/widget/app_text_form_filed.dart';
 import '../../core/widget/button.dart';
+import '../../core/widget/snabar.dart';
 import '../../core/widget/valid.dart';
 
-GetXCon obGet = Get.put(GetXCon());
+import '../../model/sign_up_model/sign_up_model.dart';
+
+
 
 class ButtonCreateAccountInLoginScreen extends StatelessWidget {
-  const ButtonCreateAccountInLoginScreen({
+   ButtonCreateAccountInLoginScreen({
     super.key,
   });
 
@@ -24,7 +31,7 @@ class ButtonCreateAccountInLoginScreen extends StatelessWidget {
         ),
         TextButton(
             onPressed: () {
-             Get.offNamed('/Signup');
+             Get.toNamed('/Signup');
             },
             child: Text('أنشاء حساب'))
       ],
@@ -147,13 +154,14 @@ class FormEmailAndPasswordInLoginScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Form(
-        key: obGet.loginForm,
+        key: DependencyInjection.obGetLogin.loginForm,
         child: Column(
           children: [
             SizedBox(
               height: 70,
             ),
             AppTextFormFiled(
+              controller: MyController.emailLogin,
               keyboardType: TextInputType.emailAddress,
               validator: (value){
                 if(isEmail(value!) ==false){
@@ -167,21 +175,24 @@ class FormEmailAndPasswordInLoginScreen extends StatelessWidget {
             SizedBox(
               height: 30,
             ),
-            GetBuilder<GetXCon>(
-                init: GetXCon(),
+            GetBuilder<SingUpController>(
+                init: SingUpController(),
                 builder: (obGet) {
                   return AppTextFormFiled(
+                    controller: MyController.passwordLogin,
                     validator: (value){
                       if(isPassword(value!) ==false){
                         return 'كلمة المرور ضعية';
                       }
                     },
+
                     hintText: 'كلمة المرور',
                     prefixIcon: Icon(Icons.lock),
                     obscureText: obGet.isPassword,
                     suffixIcon: InkWell(
                         onTap: () {
                           obGet.changeIsPassword();
+
                         },
                         child: obGet.isPassword
                             ? Icon(
@@ -202,17 +213,21 @@ class FormEmailAndPasswordInLoginScreen extends StatelessWidget {
 }
 
 class ButtonInLoginScreen extends StatelessWidget {
+  final LoginController controller;
+  final BuildContext buildContext;
   const ButtonInLoginScreen({
-    super.key,
+    super.key,required this.controller, required this.buildContext,
   });
 
   @override
   Widget build(BuildContext context) {
 
-    return MainButton(name: 'LOGIN',onPressed: (){
-      if(obGet.loginForm.currentState!.validate()){
-        Get.offNamed('/LayoutHome');
-      }
+    return MainButton(name: 'LOGIN',onPressed: ()async {
+       if(controller.loginForm.currentState!.validate()){
+         // Get.offNamed('/LayoutHome');
+         await controller.login(buildContext);
+       }
+      // mm( 'alii' ,'aa@gmail.com' , '1234567' ,'59433224'  );
 
     },
       margin: EdgeInsetsDirectional.symmetric(horizontal: 20),

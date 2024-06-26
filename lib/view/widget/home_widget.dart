@@ -1,14 +1,21 @@
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:learning_app/contraller/deatials_courses_controller.dart';
+import 'package:learning_app/contraller/teacher_controller.dart';
+import 'package:learning_app/core/dependency_injection/dependency_injection.dart';
 
 import '../../contraller/loyout_controller.dart';
 import '../../core/shared/color.dart';
 import '../../core/shared/theming/text_style.dart';
+import '../../core/widget/image_cache_error.dart';
+import '../screen/project/project_details_view.dart';
+import 'courses_widget.dart';
 
-LayoutController obGet= Get.put(LayoutController());
+LayoutController obGet = Get.put(LayoutController());
+
 class CoursesSclorWithDetailsWithCategories extends StatelessWidget {
   const CoursesSclorWithDetailsWithCategories({
     super.key,
@@ -17,6 +24,7 @@ class CoursesSclorWithDetailsWithCategories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -26,7 +34,7 @@ class CoursesSclorWithDetailsWithCategories extends StatelessWidget {
               style: TextStyles.font18BlackW500,
             ),
             InkWell(
-              onTap: (){
+              onTap: () {
                 obGet.changeCurrentIndex(1);
               },
               child: Text(
@@ -41,118 +49,215 @@ class CoursesSclorWithDetailsWithCategories extends StatelessWidget {
         ),
         Container(
           height: 30,
-          child: ListView.separated(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => Container(
-                alignment: Alignment.center,
-                padding: EdgeInsetsDirectional.symmetric(
-                    horizontal: 10, vertical: 1),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.hotel_class,
-                      size: 13,
-                      color: ProjectColors.amberColor,
-                    ),
-                    Text(
-                      'دورات مجانية',
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-                decoration: BoxDecoration(
-                    border: Border.all(
-                        color: ProjectColors.mainColor, width: 2),
-                    borderRadius:
-                    BorderRadius.all(Radius.circular(20))),
-              ),
-              separatorBuilder: (context, index) => SizedBox(
-                width: 10,
-              ),
-              itemCount: 10),
-        ),
-        SizedBox(height: 15,),
-        ListView.separated(
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemBuilder: (context ,index)=>  Container(
-              padding: EdgeInsetsDirectional.all(10),
-              decoration: BoxDecoration(
-                  color: ProjectColors.whiteColor,
-                  boxShadow: [
-                    BoxShadow(
-                        color: ProjectColors.greyColors200,
-                        spreadRadius: 2,
-                        blurRadius: 3,
-                        offset: Offset.zero),
-                  ],
-                  borderRadius: BorderRadius.circular(20)
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: Container(
-                        height: 100,
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Image.asset(
-                          'assets/images/FigmaCourses.jpg',
-                          fit: BoxFit.cover,
-                        )),
-                  ),
-                  SizedBox(width: 10,),
-                  Expanded(
-                      flex: 5,
-                      child: Column(
-                        children: [
-                          SizedBox(height: 5,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                '13 جزاء ',
-                                style: TextStyles.font18mainColorW100,
+          child: GetBuilder<DetailsCoursesController>(
+              init: DetailsCoursesController(),
+              builder: (controller) {
+                return FutureBuilder(
+                    future: controller.dataCategories.get(),
+                    builder: (context, snapshot) {
+                      return ListView.separated(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) => Container(
+                                alignment: Alignment.center,
+                                padding: EdgeInsetsDirectional.symmetric(
+                                    horizontal: 10, vertical: 1),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.hotel_class,
+                                      size: 13,
+                                      color: ProjectColors.amberColor,
+                                    ),
+                                    Text(
+                                      DependencyInjection.obGetCourses
+                                          .listCategoriesCourses[index]["name"],
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: ProjectColors.mainColor,
+                                        width: 2),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20))),
                               ),
-                              Icon(Icons.article ,color: ProjectColors.mainColor,)
-                            ],
-                          ),
-                          SizedBox(height: 5,),
-                          Text(
-                            'دورة مجانية لتعلم التصميم ب استخدام برنامج (Figma)',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyles.font18BlackW500,
-                          ),
-                          SizedBox(height: 5,),
-                          Row(
-                            children: [
-                              Text("50 \$" ,style: TextStyles.font18mainColorBold,),
-                              SizedBox(width: 5,),
-                              Text("80 \$" ,style: TextStyles.font18GreyW300, ),
-                            ],
-                          ),
-                          SizedBox(height: 5,),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Center(child: Icon(Icons.star ,color: ProjectColors.amberColor, size: 20,)),
-                              SizedBox(width: 10,),
-                              Center(child: Text('4.7' , style: TextStyles.font18GreyW300  ,textAlign: TextAlign.center,)),
-                              Container (  width: 2, color: ProjectColors.greyColor, height: 15,margin: EdgeInsetsDirectional.symmetric(horizontal: 10, vertical: 2), ),
-                              Expanded(child: Text('158 تحميل لهذة الدورة', style: TextStyles.font18GreyW300, maxLines: 1, overflow: TextOverflow.ellipsis,))
-                            ],
-                          ),
-                          SizedBox(height: 5,),
-                        ],
-                      ))
-                ],
-              ),
-            ),
-            separatorBuilder: (context ,index)=> SizedBox(height: 15,),
-            itemCount: 15)
+                          separatorBuilder: (context, index) => SizedBox(
+                                width: 10,
+                              ),
+                          itemCount: DependencyInjection
+                              .obGetCourses.listCategoriesCourses.length);
+                    });
+              }),
+        ),
+        SizedBox(
+          height: 15,
+        ),
+        GetBuilder<DetailsCoursesController>(
+            init: DetailsCoursesController(),
+            builder: (controller) {
+              return FutureBuilder(
+                  future: controller.dataCourses.get(),
+                  builder: (context, snapshot) {
+                    // Map<String, dynamic> data = snapshot.data as Map<String, dynamic>;
+                    return ListView.separated(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) => InkWell(
+                              onTap: () {
+                                Get.bottomSheet(WidgetInBottomSheet(
+                                  snapshot: snapshot,
+                                  index: index,
+                                ));
+                              },
+                              child: Container(
+                                padding: EdgeInsetsDirectional.all(10),
+                                decoration: BoxDecoration(
+                                    color: ProjectColors.whiteColor,
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: ProjectColors.greyColors200,
+                                          spreadRadius: 2,
+                                          blurRadius: 3,
+                                          offset: Offset.zero),
+                                    ],
+                                    borderRadius: BorderRadius.circular(20)),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 2,
+                                      child: Container(
+                                        height: 100,
+                                        clipBehavior:
+                                            Clip.antiAliasWithSaveLayer,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: ImageNetworkCache(
+                                            url:
+                                                "${DependencyInjection.obGetCourses.listCourses[index]["image"]}"),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
+                                        flex: 5,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  '13 جزاء ',
+                                                  style: TextStyles
+                                                      .font18mainColorW100,
+                                                ),
+                                                Icon(
+                                                  Icons.article,
+                                                  color:
+                                                      ProjectColors.mainColor,
+                                                )
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            Text(
+                                              '${DependencyInjection.obGetCourses.listCourses[index]["name"]}',
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyles.font18BlackW500,
+                                            ),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  "${DependencyInjection.obGetCourses.listCourses[index]["price"]}  \$",
+                                                  style: TextStyles
+                                                      .font18mainColorBold,
+                                                ),
+                                                SizedBox(
+                                                  width: 5,
+                                                ),
+                                                Text(
+                                                  "${DependencyInjection.obGetCourses.listCourses[index]["price"]} \$",
+                                                  style:
+                                                      TextStyles.font18GreyW300,
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
+                                              children: [
+                                                Center(
+                                                    child: Icon(
+                                                  Icons.star,
+                                                  color:
+                                                      ProjectColors.amberColor,
+                                                  size: 20,
+                                                )),
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Center(
+                                                    child: Text(
+                                                  '${DependencyInjection.obGetCourses.listCourses[index]["evaluation"]}',
+                                                  style:
+                                                      TextStyles.font18GreyW300,
+                                                  textAlign: TextAlign.center,
+                                                )),
+                                                Container(
+                                                  width: 2,
+                                                  color:
+                                                      ProjectColors.greyColor,
+                                                  height: 15,
+                                                  margin: EdgeInsetsDirectional
+                                                      .symmetric(
+                                                          horizontal: 10,
+                                                          vertical: 2),
+                                                ),
+                                                Expanded(
+                                                    child: Text(
+                                                  '${DependencyInjection.obGetCourses.listCourses[index]["counter"]} تحميل لهذة الدورة',
+                                                  style:
+                                                      TextStyles.font18GreyW300,
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ))
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                          ],
+                                        ))
+                                  ],
+                                ),
+                              ),
+                            ),
+                        separatorBuilder: (context, index) => SizedBox(
+                              height: 15,
+                            ),
+                        itemCount: DependencyInjection
+                            .obGetCourses.listCourses.length);
+                  });
+            })
       ],
     );
   }
@@ -166,6 +271,7 @@ class TeacherSclorWithDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -175,7 +281,7 @@ class TeacherSclorWithDetails extends StatelessWidget {
               style: TextStyles.font18BlackW500,
             ),
             InkWell(
-              onTap: (){
+              onTap: () {
                 Get.toNamed('/Teacher');
               },
               child: Text(
@@ -188,35 +294,77 @@ class TeacherSclorWithDetails extends StatelessWidget {
         SizedBox(
           height: 15,
         ),
+        GetBuilder<TeacherController>(
+            init: TeacherController(),
+            builder: (controller) {
+              return Container(
+                height: 80,
+                child: FutureBuilder(
+                    future: controller.dataTeachers.get(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        if (snapshot.hasData) {
+                          return ListView.separated(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) =>
+                                  cardItemTeacherInHome(
+                                      snapshot: snapshot, index: index),
+                              separatorBuilder: (context, index) => SizedBox(
+                                    width: 10,
+                                  ),
+                              itemCount: snapshot.data!.docs.length);
+                        } else {
+                          return Center(child: CircularProgressIndicator());
+                        }
+                      } else {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                    }),
+              );
+            })
+      ],
+    );
+  }
+}
+
+class cardItemTeacherInHome extends StatelessWidget {
+  final snapshot;
+  final int index;
+
+  const cardItemTeacherInHome({
+    super.key,
+    required this.snapshot,
+    required this.index,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        CircleAvatar(
+          radius: 25,
+          backgroundColor: ProjectColors.mainColor,
+          child: CircleAvatar(
+            radius: 22,
+            backgroundImage:
+                NetworkImage(snapshot.data!.docs[index].data()['image']),
+          ),
+        ),
+        SizedBox(
+          height: 5,
+        ),
         Container(
-          height: 80,
-          child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              shrinkWrap: true,
-              itemBuilder: (context, index) => Column(
-                children: [
-                  CircleAvatar(
-                    radius: 25,
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                    width: 50,
-                    alignment: Alignment.center,
-                    child: Text(
-                      'أحمد ',
-                      style: TextStyles.font20BlackW100,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  )
-                ],
-              ),
-              separatorBuilder: (context, index) => SizedBox(
-                width: 10,
-              ),
-              itemCount: 10),
+          width: 50,
+          alignment: Alignment.center,
+          child: Text(
+            snapshot.data!.docs[index].data()['name'],
+            style: TextStyles.font20BlackW100,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
         )
       ],
     );
@@ -243,7 +391,7 @@ class PackageSclorWithDetails extends StatelessWidget {
               style: TextStyles.font18BlackW500,
             ),
             InkWell(
-              onTap: (){
+              onTap: () {
                 obGet.changeCurrentIndex(3);
               },
               child: Text(
@@ -257,10 +405,10 @@ class PackageSclorWithDetails extends StatelessWidget {
           height: 15,
         ),
         CarouselSlider(
-            items:listProjectWidget ,
+            items: listProjectWidget,
             options: CarouselOptions(
               height: 200,
-              aspectRatio: 16/9,
+              aspectRatio: 16 / 9,
               viewportFraction: 0.8,
               initialPage: 0,
               enableInfiniteScroll: true,
@@ -271,11 +419,9 @@ class PackageSclorWithDetails extends StatelessWidget {
               autoPlayCurve: Curves.fastOutSlowIn,
               enlargeCenterPage: true,
               enlargeFactor: 0.3,
-              onPageChanged: (v,d){},
+              onPageChanged: (v, d) {},
               scrollDirection: Axis.horizontal,
-              
-            )
-        ),
+            )),
       ],
     );
   }
@@ -343,46 +489,48 @@ class TopSclorProjectHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 200,
+    return InkWell(
+      onTap: (){
+        Get.to(ViewDetailsView(appId: listProject[i].id));
+      },
       child: Container(
         height: 200,
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        decoration: BoxDecoration(
-          color: ProjectColors.mainColor,
-          borderRadius: BorderRadius.circular(15),
-          boxShadow: [
-            BoxShadow(
-                color: ProjectColors.greyColors200,
-                spreadRadius: 2,
-                blurRadius: 3,
-                offset: Offset.zero),
-          ],
-        ),
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            Opacity(
-              opacity: 0.3,
-              child: Image(
-                image: AssetImage("${listProject[i]['image']}"),
-                fit: BoxFit.cover,
-              ),
-            ),
-            Positioned(
-                bottom: 15,
-                right: 10,
-                child: Text(
-                  '${listProject[i]['name']}',
-                  style: TextStyles.font18WhiteW500,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ))
-          ],
+        child: Container(
+          height: 200,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          decoration: BoxDecoration(
+            color: ProjectColors.mainColor,
+            borderRadius: BorderRadius.circular(15),
+            boxShadow: [
+              BoxShadow(
+                  color: ProjectColors.greyColors200,
+                  spreadRadius: 2,
+                  blurRadius: 3,
+                  offset: Offset.zero),
+            ],
+          ),
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              Opacity(
+                  opacity: 0.3,
+                  child: ImageNetworkCache(
+                    url: "${listProject[i]['image'][0]}",
+                    fit: BoxFit.contain,
+                  )),
+              Positioned(
+                  bottom: 15,
+                  right: 10,
+                  child: Text(
+                    '${listProject[i]['name']}',
+                    style: TextStyles.font18WhiteW500,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ))
+            ],
+          ),
         ),
       ),
-
-
     );
   }
 }

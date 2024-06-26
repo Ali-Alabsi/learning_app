@@ -137,8 +137,9 @@ class ItemListInProfile extends StatelessWidget {
 }
 
 class ShowImageInProfile extends StatelessWidget {
+  final Map<String, dynamic> data;
   const ShowImageInProfile({
-    super.key,
+    super.key, required this.data,
   });
 
   @override
@@ -149,40 +150,41 @@ class ShowImageInProfile extends StatelessWidget {
           CircleAvatar(
             child: CircleAvatar(
               radius: 70,
-              child: Icon(
-                Icons.account_circle,
-                size: 140,
-                color: ProjectColors.mainColor,
-              ),
+              backgroundImage:  NetworkImage(data['image']),
+              // child: Icon(
+              //   Icons.account_circle,
+              //   size: 140,
+              //   color: ProjectColors.mainColor,
+              // ),
             ),
-            radius: 73,
+            radius: 75,
             backgroundColor: ProjectColors.mainColor,
           ),
-          Positioned(
-            bottom: 5,
-            right: 5,
-            child: InkWell(
-              onTap: () {
-                ImagePicker()
-                    .pickImage(source: ImageSource.camera)
-                    .then((value) {
-                  print('Upload Image Is Success');
-                });
-              },
-              child: Container(
-                padding: EdgeInsetsDirectional.all(4),
-                child: Icon(
-                  Icons.image_outlined,
-                  color: ProjectColors.mainColor,
-                ),
-                decoration: BoxDecoration(
-                    color: ProjectColors.whiteColor,
-                    borderRadius: BorderRadius.circular(10),
-                    border:
-                        Border.all(color: ProjectColors.mainColor, width: 3)),
-              ),
-            ),
-          )
+          // Positioned(
+          //   bottom: 5,
+          //   right: 5,
+          //   child: InkWell(
+          //     onTap: () {
+          //       ImagePicker()
+          //           .pickImage(source: ImageSource.camera)
+          //           .then((value) {
+          //         print('Upload Image Is Success');
+          //       });
+          //     },
+          //     child: Container(
+          //       padding: EdgeInsetsDirectional.all(4),
+          //       child: Icon(
+          //         Icons.image_outlined,
+          //         color: ProjectColors.mainColor,
+          //       ),
+          //       decoration: BoxDecoration(
+          //           color: ProjectColors.whiteColor,
+          //           borderRadius: BorderRadius.circular(10),
+          //           border:
+          //               Border.all(color: ProjectColors.mainColor, width: 3)),
+          //     ),
+          //   ),
+          // )
         ],
       ),
     );

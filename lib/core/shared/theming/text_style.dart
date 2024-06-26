@@ -35,7 +35,11 @@ class TextStyles {
     fontWeight: FontWeight.bold,
     color: ProjectColors.mainColor,
   );
-
+  static TextStyle font20mainColorBold = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+    color: ProjectColors.mainColor,
+  );
   static TextStyle font16mainColorBold = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.bold,

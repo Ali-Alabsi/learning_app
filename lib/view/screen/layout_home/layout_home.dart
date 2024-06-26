@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -25,7 +24,7 @@ class LayoutHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBarLayout(),
+        appBar: AppBarLayout(context),
         body: GetBuilder<LayoutController>(
           builder: (controller){
             return controller.Screen[controller.currentIndex];

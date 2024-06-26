@@ -1,24 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:learning_app/core/dependency_injection/dependency_injection.dart';
+import 'package:learning_app/core/widget/no_data.dart';
 import '../../../core/shared/color.dart';
 import '../../../core/shared/theming/text_style.dart';
 
 
 class ListItemReviewInCoursess extends StatelessWidget {
+  final String courseId;
   const ListItemReviewInCoursess({
-    super.key,
+    super.key, required this.courseId,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-        itemBuilder: (context , index)=>ItemReviewInViewDetailsCourses(),
-        separatorBuilder:(context , index)=> SizedBox(height: 10,), itemCount: 10);
+    return FutureBuilder(
+      future: DependencyInjection.obGetCourses.dataReviews.where('course_id' , isEqualTo: courseId).get(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.hasData) {
+              if(snapshot.data!.docs.length ==0){
+                return NoDataWidget(title: 'لا توجد تعليقات خاصة بهذا الكورس',);
+              }else{
+              return ListView.separated(
+                  itemBuilder: (context , index)=>ItemReviewInViewDetailsCourses(snapshot: snapshot, index: index,),
+                  separatorBuilder:(context , index)=> SizedBox(height: 10,), itemCount: snapshot.data!.docs.length);}
+            } else {
+              return Center(child: CircularProgressIndicator());
+            }
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        }
+    );
   }
 }
 
 class ItemReviewInViewDetailsCourses extends StatelessWidget {
+  final snapshot;
+  final int index;
   const ItemReviewInViewDetailsCourses({
-    super.key,
+    super.key,required this.snapshot, required this.index,
   });
 
   @override
@@ -61,7 +82,7 @@ class ItemReviewInViewDetailsCourses extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'علي نبيل علي ',
+                      snapshot.data!.docs[index].data()['student_name'],
                       style: TextStyles.font16mainColorBold,
                     ),
                     Container(
@@ -80,14 +101,14 @@ class ItemReviewInViewDetailsCourses extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Icon(Icons.star ,size: 13 ,color: ProjectColors.amberColor,),
-                          Text('4.2' ,style: TextStyles.font14BlackBold,),
+                          Text( snapshot.data!.docs[index].data()['evaluation'] ,style: TextStyles.font14BlackBold,),
                         ],
                       ),
                     )
                   ],
                 ),
                 Text(
-                  'هذا الكورس جيدا ويحتوي على كثير من المفاهيم المهمةوايضاء الكثير من التفاصيل فان انصح بمشاهدة هذاالكورس وشكرا.',
+                    snapshot.data!.docs[index].data()['details'],
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -100,7 +121,7 @@ class ItemReviewInViewDetailsCourses extends StatelessWidget {
                         Text('780' ,style: TextStyles.font14GreyW300,),
                       ],
                     ),
-                    Text('قبل اسبوعين')
+                    Text( snapshot.data!.docs[index].data()['date'],)
                   ],
                 )
               ],
