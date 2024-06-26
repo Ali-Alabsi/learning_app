@@ -1,9 +1,12 @@
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:learning_app/core/widget/app_text_form_filed.dart';
 
+import '../../../contraller/profile_controller.dart';
 import '../../../core/shared/color.dart';
+import '../../../core/shared/controller.dart';
 import '../../../core/shared/theming/text_style.dart';
 import '../../../core/widget/button.dart';
 
@@ -14,38 +17,57 @@ class EditProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('تعديل الحساب' , style: TextStyles.font18BlackBold),
+        title: Text('تعديل الحساب', style: TextStyles.font18BlackBold),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              ShowImageInProfile(),
-              SizedBox(
-                height: 20,
-              ),
-              AppTextFormFiled(hintText: 'اسم المستخدم ',prefixIcon: Icon(Icons.account_circle),),
-              SizedBox(
-                height: 15,
-              ),
-              AppTextFormFiled(hintText: ' الايميل ',prefixIcon: Icon(Icons.email),),
-              SizedBox(
-                height: 15,
-              ),
-              AppTextFormFiled(hintText: ' كلمة المرور ',prefixIcon: Icon(Icons.lock),),
-              SizedBox(
-                height: 15,
-              ),
-              AppTextFormFiled(hintText: ' رقم الهاتف ',prefixIcon: Icon(Icons.phone),),
-              SizedBox(
-                height: 30,
-              ),
-              MainButton(name: 'تعديل الحساب', onPressed: (){}, margin: EdgeInsetsDirectional.symmetric(horizontal: 0),)
-            ],
-          ),
-        ),
-      ),
+      body: GetBuilder<ProfileController>(
+          init: ProfileController(),
+          builder: (controller) {
+            return FutureBuilder(
+                future: controller.dataUser
+                    .doc(FirebaseAuth.instance.currentUser!.uid)
+                    .get(),
+                builder: (context, snapshot) {
+                  MyController.nameEdit.text = snapshot.data!['username'];
+                  MyController.phoneEdit.text = snapshot.data!['phone'];
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          ShowImageInProfile(),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          AppTextFormFiled(
+                            hintText: 'اسم المستخدم ',
+                            prefixIcon: Icon(Icons.account_circle),
+                            controller: MyController.nameEdit,
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          AppTextFormFiled(
+                            hintText: ' رقم الهاتف ',
+                            prefixIcon: Icon(Icons.phone),
+                            controller: MyController.phoneEdit,
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          MainButton(
+                            name: 'تعديل الحساب',
+                            onPressed: () async {
+                              await  controller.updateUser(context ,MyController.nameEdit.text, MyController.phoneEdit.text);
+                            },
+                            margin:
+                                EdgeInsetsDirectional.symmetric(horizontal: 0),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                });
+          }),
     );
   }
 }
@@ -93,7 +115,7 @@ class ShowImageInProfile extends StatelessWidget {
                     color: ProjectColors.whiteColor,
                     borderRadius: BorderRadius.circular(10),
                     border:
-                    Border.all(color: ProjectColors.mainColor, width: 3)),
+                        Border.all(color: ProjectColors.mainColor, width: 3)),
               ),
             ),
           )

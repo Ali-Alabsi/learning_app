@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:learning_app/contraller/profile_contrller.dart';
 import 'package:learning_app/core/shared/color.dart';
+import '../../../contraller/profile_controller.dart';
 import '../../../core/shared/theming/text_style.dart';
 import '../../widget/profile_widget.dart';
 
@@ -14,8 +15,8 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GetBuilder<ProfilesController>(
-          init: ProfilesController(),
+      body: GetBuilder<ProfileController>(
+          init: ProfileController(),
           builder: (controller) {
             return FutureBuilder(
                 future: controller.dataUser

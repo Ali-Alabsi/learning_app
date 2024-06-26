@@ -34,7 +34,6 @@ class AwesomeDialogFunction   {
       },
     ).show();
   }
-
   static  awesomeDialogQuestion(context , String title , String desc , void Function()? btnOkOnPress ,void Function()? btnCancelOnPress){
     return   AwesomeDialog(
       context: context,

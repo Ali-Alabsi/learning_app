@@ -7,4 +7,6 @@ class MyController {
   static TextEditingController phoneSignup = TextEditingController();
   static TextEditingController emailLogin = TextEditingController();
   static TextEditingController passwordLogin = TextEditingController();
+  static TextEditingController nameEdit = TextEditingController();
+  static TextEditingController phoneEdit = TextEditingController();
 }
