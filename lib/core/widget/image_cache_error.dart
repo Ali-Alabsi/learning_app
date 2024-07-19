@@ -5,13 +5,17 @@ import 'package:shimmer/shimmer.dart';
 class ImageNetworkCache extends StatelessWidget {
   final String url;
   final BoxFit? fit;
+  final double? width;
+  final double? height;
   const ImageNetworkCache({
-    super.key, required this.url,this.fit
+    super.key, required this.url,this.fit, this.width, this.height
   });
 
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
+      width: width,
+      height: height,
       imageUrl: url,
       fit: BoxFit.cover,
       imageBuilder: (context, imageProvider) => Container(

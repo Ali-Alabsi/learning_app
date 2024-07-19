@@ -12,6 +12,7 @@ import '../../core/shared/color.dart';
 import '../../core/shared/theming/text_style.dart';
 import '../../core/widget/image_cache_error.dart';
 import '../screen/project/project_details_view.dart';
+import '../screen/teacher/view_details_in_teacher.dart';
 import 'courses_widget.dart';
 
 LayoutController obGet = Get.put(LayoutController());
@@ -340,33 +341,38 @@ class cardItemTeacherInHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        CircleAvatar(
-          radius: 25,
-          backgroundColor: ProjectColors.mainColor,
-          child: CircleAvatar(
-            radius: 22,
-            backgroundImage:
-                NetworkImage(snapshot.data!.docs[index].data()['image']),
+    return InkWell(
+      onTap: (){
+        Get.to(ViewDetailsInTeacher(teacherId: snapshot.data!.docs[index].id,));
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          CircleAvatar(
+            radius: 25,
+            backgroundColor: ProjectColors.mainColor,
+            child: CircleAvatar(
+              radius: 22,
+              backgroundImage:
+                  NetworkImage(snapshot.data!.docs[index].data()['image']),
+            ),
           ),
-        ),
-        SizedBox(
-          height: 5,
-        ),
-        Container(
-          width: 50,
-          alignment: Alignment.center,
-          child: Text(
-            snapshot.data!.docs[index].data()['name'],
-            style: TextStyles.font20BlackW100,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
+          SizedBox(
+            height: 5,
           ),
-        )
-      ],
+          Container(
+            width: 50,
+            alignment: Alignment.center,
+            child: Text(
+              snapshot.data!.docs[index].data()['name'],
+              style: TextStyles.font20BlackW100,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          )
+        ],
+      ),
     );
   }
 }

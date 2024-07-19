@@ -9,4 +9,5 @@ class MyController {
   static TextEditingController passwordLogin = TextEditingController();
   static TextEditingController nameEdit = TextEditingController();
   static TextEditingController phoneEdit = TextEditingController();
+  static TextEditingController sendMessage = TextEditingController();
 }

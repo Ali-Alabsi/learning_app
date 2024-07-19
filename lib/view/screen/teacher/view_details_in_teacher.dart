@@ -28,7 +28,7 @@ class ViewDetailsInTeacher extends StatelessWidget {
               return ListView(
                 children: [
                   Container(
-                    height: 300,
+                    height: 380,
                     child: ViewDataForFireBaseWithLoading(
                       future: controller.dataTeachers.doc(teacherId).get(),
                       widgetView: (snapshot) {

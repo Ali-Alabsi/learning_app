@@ -46,7 +46,6 @@ class CoursesCategory extends StatelessWidget {
                             child: Image.network(
                               '${DependencyInjection.obGetCourses.listCategoriesCourses[index]["image"]}',
                               fit: BoxFit.cover,
-                              height: 120,
                               width: double.infinity,
                             ),
                             margin: EdgeInsetsDirectional.symmetric(

@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:learning_app/view/screen/auth/Login.dart';
 import 'package:learning_app/view/screen/home/home.dart';
 import '../core/firebase_concepts/end_points.dart';
 import '../core/shared/controller.dart';
@@ -63,7 +64,7 @@ class SingUpController extends GetxController {
         }
         final m = SingUpModel.formJson('تم أضافة المستخدم بنجاح');
         AwesomeDialogFunction.awesomeDialogSuccess(context, 'تم', "${m.message}");
-        Get.off(Home());
+        Get.off(Login());
         // snackBarWidget(context, '${m.message}');
         isLoading = false;
       } on FirebaseAuthException catch (e) {

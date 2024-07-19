@@ -69,4 +69,15 @@ class ProfileController extends GetxController {
     selectedImage = await image;
     update();
   }
+
+  bool isScreenCallMe = true;
+  changeToScreenCallMe (){
+    isScreenCallMe = true;
+    print('a');
+    update();
+  }
+  changeToScreenReview(){
+    isScreenCallMe = false;
+    update();
+  }
 }

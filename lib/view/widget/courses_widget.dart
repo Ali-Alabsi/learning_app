@@ -160,7 +160,8 @@ class CardCourses extends StatelessWidget {
                 child: Image.network(
                   snapshot.data!.docs[index].data()['image'],
                   fit: BoxFit.cover,
-                )),
+                )
+            ),
           ),
           SizedBox(
             width: 10,

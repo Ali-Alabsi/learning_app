@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../contraller/help_screen_controller.dart';
-import '../../../core/shared/theming/text_style.dart';
+
+import '../../../../core/shared/theming/text_style.dart';
+import '../../../contraller/profile_controller.dart';
 import 'call_me_in_help_screen.dart';
 import 'review_in_help_screen.dart';
 
 class LayoutHelpScreen extends StatelessWidget {
   LayoutHelpScreen({super.key});
-  HelpScreenController obGet = Get.put(HelpScreenController());
+  ProfileController obGet = Get.put(ProfileController());
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +41,8 @@ class LayoutHelpScreen extends StatelessWidget {
               },
             ),
           ),
-          body: GetBuilder<HelpScreenController>(
-            init: HelpScreenController(),
+          body: GetBuilder<ProfileController>(
+            init: ProfileController(),
             builder: (controller) {
               return controller.isScreenCallMe
                   ? CallMeInHelpScreen()

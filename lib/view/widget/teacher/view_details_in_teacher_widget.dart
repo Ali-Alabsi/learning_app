@@ -21,10 +21,7 @@ class TopDetailsInTeacherDetailsPage extends StatelessWidget {
       children: [
         Container(
           width: double.infinity,
-          // height:500,
-          // padding: EdgeInsets.symmetric(horizontal: 0),
 
-          // color: Colors.green,
           child: Column(
             children: [
               CircleAvatar(

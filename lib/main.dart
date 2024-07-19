@@ -61,10 +61,6 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: ProjectColors.mainColor),
           useMaterial3: true,
         ),
-        // home: Privacy_policy(),
-        // home: Notifications(),
-        // home: LayoutHome(),
-        // home: ViewDetailsView(appId: 'ORoqkB7EPlNCEG6NLlGy'),
         initialRoute:'/Login',
         // initialRoute: '/Privacy_policy',
         getPages: [

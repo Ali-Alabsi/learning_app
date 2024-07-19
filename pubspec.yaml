@@ -80,6 +80,10 @@ dependencies:
   dropdown_search:
   cached_network_image: ^3.3.1
   shimmer: ^3.0.0
+  # Open URL
+  url_launcher:
+    # Icon
+  eva_icons_flutter: ^3.1.0
 
 
 dev_dependencies:

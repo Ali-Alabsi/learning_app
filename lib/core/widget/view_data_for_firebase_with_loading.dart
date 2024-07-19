@@ -27,3 +27,30 @@ class ViewDataForFireBaseWithLoading extends StatelessWidget {
     );
   }
 }
+
+class ViewDataForFireBaseWithLoadingWithStream extends StatelessWidget {
+  final Stream<Object?>? future;
+  final  Widget Function(dynamic)? widgetView;
+  const ViewDataForFireBaseWithLoadingWithStream({
+    super.key, required this.future, required this.widgetView,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+        stream: future,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.hasData) {
+              // Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
+              return widgetView!(snapshot);
+            } else {
+              return Center(child: CircularProgressIndicator());
+            }
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        }
+    );
+  }
+}
