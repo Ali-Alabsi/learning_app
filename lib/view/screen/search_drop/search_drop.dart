@@ -2,8 +2,8 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 
-class Search_Drop extends StatelessWidget {
-  const Search_Drop({Key? key}) : super(key: key);
+class SearchDrop extends StatelessWidget {
+  const SearchDrop({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learning_app/contraller/teacher_controller.dart';
+import 'package:learning_app/core/widget/shimmer_widget.dart';
 
 import '../../../core/shared/color.dart';
 import '../../../core/shared/theming/text_style.dart';
@@ -21,6 +22,20 @@ class ReviewInTeacher extends StatelessWidget {
         init: TeacherController(),
         builder: (controller) {
           return ViewDataForFireBaseWithLoading(
+            widgetLoading: ListView.separated(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemBuilder: (context , index){
+                  return ShimmerWidget(
+                    widget: Card(
+                      child: Container(
+                        height: 160,
+                      ),
+                    ),
+                  );
+                }, separatorBuilder: (context , index){
+                  return SizedBox(height: 10,);
+            }, itemCount: 10) ,
               future: controller.dataTeacherReview.where(
                   'teacher_id', isEqualTo: teacherId).get(),
               widgetView: (snapshot) {

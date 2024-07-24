@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-import 'package:learning_app/contraller/chat_controller.dart';
-
+import '../../../contraller/chat_controller.dart';
 import '../../../core/shared/color.dart';
 import '../../../core/shared/theming/text_style.dart';
 import '../../../core/widget/image_cache_error.dart';
+import '../../../core/widget/shimmer_widget.dart';
 import '../../../core/widget/view_data_for_firebase_with_loading.dart';
-import '../../widget/chat_widgets.dart';
-import '../course_description/s.dart';
 import 'chat.dart';
-import 'chat_test.dart';
 
 class ChatInboxScreen extends StatelessWidget {
   ChatInboxScreen({super.key});
@@ -26,57 +22,157 @@ class ChatInboxScreen extends StatelessWidget {
           color: ProjectColors.whiteColor,
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Text('محادثات مع الطلاب' ,style: TextStyles.font16mainColorBold,),
-          ),
-          SizedBox(height: 10,),
-          Expanded(
-            child: GetBuilder<ChatController>(
-                init: ChatController(),
-                builder: (controller) {
-                  return ViewDataForFireBaseWithLoading(
-                    future: controller.dataUser.get(),
-                    widgetView: (snapshot) {
-                      return ListView.separated(
-                          itemBuilder: (context , index){
-                            return ItemCardChatInbox(snapshot: snapshot, index: index);
-                          }, separatorBuilder: (context , index){
-                            return SizedBox(height: 15,);
-                      }, itemCount: snapshot.data.docs.length)
-                      ;
-                    },
-                  );
-                }),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Text('محادثات مع المعلمين' ,style: TextStyles.font16mainColorBold,),
-          ),
-          SizedBox(height: 10,),
-          Expanded(
-            child: GetBuilder<ChatController>(
-                init: ChatController(),
-                builder: (controller) {
-                  return ViewDataForFireBaseWithLoading(
-                    future: controller.dataTeacher.get(),
-                    widgetView: (snapshot) {
-                      return ListView.separated(
-                          itemBuilder: (context , index){
-                            return ItemCardChatInbox(snapshot: snapshot, index: index, isTeacher: true,);
-                          }, separatorBuilder: (context , index){
-                        return SizedBox(height: 15,);
-                      }, itemCount: snapshot.data.docs.length)
-                      ;
-                    },
-                  );
-                }),
-          ),
-        ],
+      body: GetBuilder<ChatController>(
+          init: ChatController(),
+          builder: (controller) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('محادثات مع ' ,style: TextStyles.font16mainColorBold,),
+                  SizedBox(height: 15,),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            controller.changeIndexCurrent(0);
+                          },
+                          child: Text(
+                            'طالب',
+                            style:  controller.indexCurrent ==0 ? TextStyles.font18WhiteW500 : TextStyles.font18mainColorBold,
+                          ),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: controller.indexCurrent ==0 ? ProjectColors.mainColor : ProjectColors.whiteColor,
+                              // i want radius 20 in ElevatedButton
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              minimumSize: Size(120, 55)),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            controller.changeIndexCurrent(1);
+                          },
+                          child: Text(
+                            'معلم',
+                            style:  controller.indexCurrent ==1 ? TextStyles.font18WhiteW500 : TextStyles.font18mainColorBold,
+                          ),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: controller.indexCurrent ==1 ? ProjectColors.mainColor : ProjectColors.whiteColor,
+                              // i want radius 20 in ElevatedButton
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              minimumSize: Size(120, 55)),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  SizedBox(height: 15,),
+                  Container(
+                    child: controller.indexCurrent ==0?  ListChatWithUserInChat()  : ListChatWithTeacherInChat(),
+                  ),
+
+
+                ],
+              ),
+            );
+          }
       ),
+    );
+  }
+}
+
+class ListChatWithTeacherInChat extends StatelessWidget {
+  const ListChatWithTeacherInChat({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: GetBuilder<ChatController>(
+          init: ChatController(),
+          builder: (controller) {
+            return ViewDataForFireBaseWithLoading(
+              widgetLoading: ListView.separated(
+                  itemBuilder: (context , index){
+                    return  ShimmerWidget(
+                      widget: Card(
+                        elevation: 0,
+                        child: Container(
+                          height: 60,
+                          width: double.infinity,
+
+                        ),
+                      ),
+                    );
+                  }, separatorBuilder: (context , index){
+                return SizedBox(height: 15,);
+              }, itemCount: 5),
+              future: controller.dataTeacher.where('active',isEqualTo: true).get(),
+              widgetView: (snapshot) {
+                return ListView.separated(
+                    itemBuilder: (context , index){
+                      return ItemCardChatInbox(snapshot: snapshot, index: index, isTeacher: true,);
+                    }, separatorBuilder: (context , index){
+                  return SizedBox(height: 15,);
+                }, itemCount: snapshot.data.docs.length)
+                ;
+              },
+            );
+          }),
+    );
+  }
+}
+
+class ListChatWithUserInChat extends StatelessWidget {
+  const ListChatWithUserInChat({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: GetBuilder<ChatController>(
+          init: ChatController(),
+          builder: (controller) {
+            return ViewDataForFireBaseWithLoading(
+              widgetLoading: ListView.separated(
+                  itemBuilder: (context , index){
+                    return  ShimmerWidget(
+                      widget: Card(
+                        elevation: 0,
+                        child: Container(
+                          height: 60,
+                          width: double.infinity,
+
+                        ),
+                      ),
+                    );
+                  }, separatorBuilder: (context , index){
+                return SizedBox(height: 15,);
+              }, itemCount: 5),
+              future: controller.dataUser.where('active',isEqualTo: true).get(),
+              widgetView: (snapshot) {
+                return ListView.separated(
+                    itemBuilder: (context , index){
+                      return ItemCardChatInbox(snapshot: snapshot, index: index);
+                    }, separatorBuilder: (context , index){
+                  return SizedBox(height: 15,);
+                }, itemCount: snapshot.data.docs.length)
+                ;
+              },
+            );
+          }),
     );
   }
 }
@@ -92,14 +188,16 @@ class ItemCardChatInbox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 0),
       child: InkWell(
         onTap: (){
-          Get.to(ChatScreen(
+          Get.to(
+              ChatScreen(
             index: index,
             idReceived: snapshot.data.docs[index].id,
             name: isTeacher ?  snapshot.data.docs[index]['name']:snapshot.data.docs[index]['username'],
-          ));
+          )
+          );
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

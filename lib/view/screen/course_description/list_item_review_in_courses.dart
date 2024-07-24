@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learning_app/core/dependency_injection/dependency_injection.dart';
 import 'package:learning_app/core/widget/no_data.dart';
+import 'package:learning_app/core/widget/shimmer_widget.dart';
 import '../../../core/shared/color.dart';
 import '../../../core/shared/theming/text_style.dart';
 
@@ -28,7 +29,17 @@ class ListItemReviewInCoursess extends StatelessWidget {
               return Center(child: CircularProgressIndicator());
             }
           } else {
-            return Center(child: CircularProgressIndicator());
+            return ListView.separated(
+                itemBuilder: (context , index){
+                  return ShimmerWidget(widget: Card(
+                    child: Container(
+                      height: 150,
+                      width: double.infinity,
+                    ),
+                  ));
+                }, separatorBuilder: (context , index){
+                  return SizedBox(height: 15,);
+            }, itemCount: 10);
           }
         }
     );

@@ -10,4 +10,5 @@ class MyController {
   static TextEditingController nameEdit = TextEditingController();
   static TextEditingController phoneEdit = TextEditingController();
   static TextEditingController sendMessage = TextEditingController();
+  static TextEditingController search = TextEditingController();
 }

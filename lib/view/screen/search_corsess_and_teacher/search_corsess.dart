@@ -4,13 +4,12 @@ import 'package:learning_app/core/widget/app_text_form_filed.dart';
 import '../../../core/shared/color.dart';
 import '../../../core/shared/theming/text_style.dart';
 
-class Search_corsess extends StatelessWidget {
-  const Search_corsess({super.key});
+class SearchCourses extends StatelessWidget {
+  const SearchCourses({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Column(
         children: [
           Padding(

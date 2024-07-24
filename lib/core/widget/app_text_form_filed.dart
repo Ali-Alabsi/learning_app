@@ -13,9 +13,12 @@ class AppTextFormFiled extends StatelessWidget {
       this.focusedBorder,
       this.fillColor,
       this.suffixIcon,
-        this.prefixIcon,
-        this.keyboardType,
-        this.obscureText, this.validator, this.controller,  this.noSpaceTextInputFormatter =true});
+      this.prefixIcon,
+      this.keyboardType,
+      this.obscureText,
+      this.validator,
+      this.controller,
+      this.noSpaceTextInputFormatter = true});
 
   final EdgeInsetsGeometry? contentPadding;
   final bool noSpaceTextInputFormatter;
@@ -31,20 +34,23 @@ class AppTextFormFiled extends StatelessWidget {
   final String? Function(String?)? validator;
   final TextEditingController? controller;
 
-
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
       validator: validator,
-      inputFormatters: [noSpaceTextInputFormatter ?NoSpaceTextInputFormatter() : SpaceTextInputFormatter() ],
-      keyboardType: keyboardType?? TextInputType.text ,
-      obscureText: obscureText??false,
+      inputFormatters: [
+        noSpaceTextInputFormatter
+            ? NoSpaceTextInputFormatter()
+            : SpaceTextInputFormatter()
+      ],
+      keyboardType: keyboardType ?? TextInputType.text,
+      obscureText: obscureText ?? false,
       decoration: InputDecoration(
           contentPadding: contentPadding ??
               const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           hintText: hintText,
-           hintStyle: hintStyle,
+          hintStyle: hintStyle,
           enabledBorder: enabledBorder ??
               OutlineInputBorder(
                   borderSide: BorderSide(
@@ -57,30 +63,26 @@ class AppTextFormFiled extends StatelessWidget {
                     color: ProjectColors.mainColor,
                   ),
                   borderRadius: BorderRadius.circular(16)),
-          errorBorder:   OutlineInputBorder(
+          errorBorder: OutlineInputBorder(
               borderSide: BorderSide(
                 color: ProjectColors.redColor,
               ),
               borderRadius: BorderRadius.circular(16)),
-          border:  OutlineInputBorder(
-              borderSide: BorderSide(
-                color: ProjectColors.mainColor,
-                width: 1
-              ),
+          border: OutlineInputBorder(
+              borderSide: BorderSide(color: ProjectColors.mainColor, width: 1),
               borderRadius: BorderRadius.circular(16)),
           fillColor: fillColor ?? ProjectColors.mainColor.withOpacity(0.2),
           filled: true,
           suffixIcon: suffixIcon,
-        prefixIcon: prefixIcon
-      ),
-
+          prefixIcon: prefixIcon),
     );
   }
 }
 
 class NoSpaceTextInputFormatter extends TextInputFormatter {
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
     if (newValue.text.contains(' ')) {
       return oldValue;
     }
@@ -88,11 +90,10 @@ class NoSpaceTextInputFormatter extends TextInputFormatter {
   }
 }
 
-
 class SpaceTextInputFormatter extends TextInputFormatter {
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
-
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
     return newValue;
   }
 }

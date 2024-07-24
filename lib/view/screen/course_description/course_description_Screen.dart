@@ -15,11 +15,11 @@ class CourseDescriptionScreen extends StatelessWidget {
   DetailsCoursesController ob = Get.put(DetailsCoursesController());
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-      body: Column(
+    return Scaffold(
+    body: SafeArea(
+      child: Column(
       children: [
-        ImageInToDetailsCourses(),
+        ImageInToDetailsCourses(couresId: courseId,),
         Expanded(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -52,7 +52,7 @@ class CourseDescriptionScreen extends StatelessWidget {
         // SizedBox(height: 20,),
       ],
       ),
-      ),
+    ),
     );
   }
 }

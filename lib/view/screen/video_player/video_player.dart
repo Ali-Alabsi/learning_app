@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:learning_app/core/widget/view_data_for_firebase_with_loading.dart';
 import 'package:video_player/video_player.dart';
+
+import '../../../core/widget/view_data_for_firebase_with_loading.dart';
 
 
 /// Stateful widget to fetch and then display video content.
@@ -10,7 +11,7 @@ class VideoApp extends StatefulWidget {
   final String urlVideo;
   final String videoId;
   final String coursesId;
-   VideoApp({super.key, required this.urlVideo, required this.videoId, required this.coursesId});
+  VideoApp({super.key, required this.urlVideo, required this.videoId, required this.coursesId});
 
   @override
   _VideoAppState createState() => _VideoAppState(urlVideo ,videoId ,coursesId);
@@ -18,8 +19,8 @@ class VideoApp extends StatefulWidget {
 
 class _VideoAppState extends State<VideoApp> {
   final String urlVideo;
-   final String videoId;
-   final String coursesId;
+  final String videoId;
+  final String coursesId;
   late VideoPlayerController _controller;
 
 
@@ -45,35 +46,72 @@ class _VideoAppState extends State<VideoApp> {
     FirebaseFirestore.instance.collection("courses").doc(coursesId).collection("video").doc(videoId).get();
     return Scaffold(
       appBar: AppBar(
-        title: ViewDataForFireBaseWithLoading(
-          future: getData,
-          widgetView: (snapshot){
-            return Text( snapshot.data!.data()['name']);
-          },
-        )
-    ),
-        body: Center(
-          child: _controller.value.isInitialized
-              ? AspectRatio(
-            aspectRatio: _controller.value.aspectRatio,
-            child: VideoPlayer(_controller),
+          title: ViewDataForFireBaseWithLoading(
+            future: getData,
+            widgetView: (snapshot){
+              return Text( snapshot.data!.data()['name']);
+            },
           )
-              : Container(),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            setState(() {
-              _controller.value.isPlaying
-                  ? _controller.pause()
-                  : _controller.play();
-            });
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: Center(
+              child: _controller.value.isInitialized
+                  ? AspectRatio(
+                aspectRatio: _controller.value.aspectRatio,
+                child: Stack(
+                  children: [
+                    VideoPlayer(_controller),
+                    // Add a Slider for video navigation
+                    Positioned(
+                      bottom: -10,
+                      left: 0,
+                      right: 0,
+                      child: Slider(
+                        value: _controller.value.position.inSeconds.toDouble(),
+                        min: 0,
+                        max: _controller.value.duration.inSeconds.toDouble(),
+                        onChanged: (value) {
+                          setState(() {
+                            _controller.seekTo(Duration(seconds: value.toInt()));
+                          });
 
-          },
-          child: Icon(
-            _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+                        },
+                      ),
+                    ),
+                    // Display current time
+                    Positioned(
+                      bottom: -10,
+                      right: 25,
+                      child: Text(
+                        '${_controller.value.position.inHours}:${_controller.value.position.inMinutes.remainder(60)}:${_controller.value.position.inSeconds.remainder(60)}',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+                  : Container(),
+            ),
           ),
+          // ... (existing code)
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            _controller.value.isPlaying
+                ? _controller.pause()
+                : _controller.play();
+          });
+
+        },
+        child: Icon(
+          _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
         ),
-      );
+      ),
+    );
   }
 
   @override

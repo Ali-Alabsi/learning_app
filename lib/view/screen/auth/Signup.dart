@@ -2,15 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:io';
-
-// import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:learning_app/contraller/sign_up_controller.dart';
-import 'package:learning_app/core/widget/app_text_form_filed.dart';
 import 'package:learning_app/core/widget/button.dart';
-import 'package:learning_app/model/sign_up_model/sign_up_model.dart';
-
-import '../../../contraller/getX.dart';
 import '../../widget/signup_widget.dart';
 import 'Login.dart';
 

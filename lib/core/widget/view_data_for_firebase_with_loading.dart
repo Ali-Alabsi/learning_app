@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 
 class ViewDataForFireBaseWithLoading extends StatelessWidget {
   final Future<Object?>? future;
-  final  Widget Function(dynamic)? widgetView;
-  const ViewDataForFireBaseWithLoading({
-    super.key, required this.future, required this.widgetView,
+  final Widget Function(dynamic)? widgetView;
+  final Widget? widgetLoading;
+
+   ViewDataForFireBaseWithLoading({
+    super.key,
+    required this.future,
+    required this.widgetView,
+     this.widgetLoading ,
   });
 
   @override
@@ -16,23 +21,25 @@ class ViewDataForFireBaseWithLoading extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasData) {
               // Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
-              return widgetView!(snapshot);
+              return widgetView!(snapshot) ;
             } else {
-              return Center(child: CircularProgressIndicator());
+              return widgetLoading ?? Center(child:  CircularProgressIndicator(),);
             }
           } else {
-            return Center(child: CircularProgressIndicator());
+            return widgetLoading ?? Center(child:  CircularProgressIndicator(),);
           }
-        }
-    );
+        });
   }
 }
 
 class ViewDataForFireBaseWithLoadingWithStream extends StatelessWidget {
   final Stream<Object?>? future;
-  final  Widget Function(dynamic)? widgetView;
+  final Widget Function(dynamic)? widgetView;
+
   const ViewDataForFireBaseWithLoadingWithStream({
-    super.key, required this.future, required this.widgetView,
+    super.key,
+    required this.future,
+    required this.widgetView,
   });
 
   @override
@@ -50,7 +57,6 @@ class ViewDataForFireBaseWithLoadingWithStream extends StatelessWidget {
           } else {
             return Center(child: CircularProgressIndicator());
           }
-        }
-    );
+        });
   }
 }

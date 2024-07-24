@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:learning_app/contraller/app_controller.dart';
+import 'package:learning_app/core/widget/shimmer_widget.dart';
 
 import '../../../core/shared/color.dart';
 import '../../../core/shared/theming/text_style.dart';
@@ -114,10 +115,22 @@ class Project extends StatelessWidget {
                                   ),
                               itemCount: controller.listApp.length);
                         } else {
-                          return Center(child: CircularProgressIndicator());
+                          return  ShimmerWidget(widget: Card(
+                            child: Container(
+                              height: 300,
+                            ),
+                          ));
                         }
                       } else {
-                        return Center(child: CircularProgressIndicator());
+                        return ListView.separated(itemBuilder: (context ,index){
+                          return  ShimmerWidget(widget: Card(
+                            child: Container(
+                              height: 300,
+                            ),
+                          ));
+                        }, separatorBuilder: (context , index){
+                          return SizedBox(height: 15,);
+                        }, itemCount: 3);
                       }
                     });
               }),

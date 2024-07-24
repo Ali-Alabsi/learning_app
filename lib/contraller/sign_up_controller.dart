@@ -45,7 +45,7 @@ class SingUpController extends GetxController {
         );
         User? user = userEmailAndPassword.user;
         if(userEmailAndPassword.user?.uid != ''){
-          final imageUpload = await FirebaseStorage.instance.ref().child('user/${userEmailAndPassword.user!.uid}.jpg');
+          final imageUpload = await FirebaseStorage.instance.ref().child('user/${userEmailAndPassword.user!.uid}/profile.jpg');
           await imageUpload.putFile(File(selectedImage!.path));
           url = await imageUpload.getDownloadURL();
           print(imageUpload.fullPath);
@@ -60,11 +60,13 @@ class SingUpController extends GetxController {
             '${FireBaseKey.email}': '${MyController.emailSignup.text}',
             '${FireBaseKey.phone}': '${MyController.phoneSignup.text}',
             '${FireBaseKey.image}': url,
+            'active': false,
           });
         }
-        final m = SingUpModel.formJson('تم أضافة المستخدم بنجاح');
+        FirebaseAuth.instance.signOut();
+        final m = SingUpModel.formJson(' تم أضافة الطالب بنجاح يرجى الانتضار حتى يتم الموافقة علية من قبل الادارة');
         AwesomeDialogFunction.awesomeDialogSuccess(context, 'تم', "${m.message}");
-        Get.off(Login());
+        clearData();
         // snackBarWidget(context, '${m.message}');
         isLoading = false;
       } on FirebaseAuthException catch (e) {
@@ -89,6 +91,14 @@ class SingUpController extends GetxController {
       isLoading = false;
     }
 
+    update();
+  }
+  clearData(){
+    MyController.phoneSignup.text = '';
+    MyController.emailSignup.text = '';
+    MyController.nameSignup.text = '';
+    MyController.passwordSignup.text = '';
+    selectedImage = null;
     update();
   }
 

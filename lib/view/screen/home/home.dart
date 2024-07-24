@@ -22,17 +22,6 @@ class Home extends StatelessWidget {
       ];
     }
 
-    // List<Widget> listProjectWidget = [
-    //   for (int i = 0; i < DependencyInjection.obGetApp.listApp.length; i++) ...[
-    //     GetBuilder<AppController>(
-    //       init: AppController(),
-    //       builder: (controller)  {
-    //         controller.addDataToListCourses();
-    //         return TopSclorProjectHome(listProject: controller.listApp, i: i);
-    //       }
-    //     )
-    //   ],
-    // ];
     return Scaffold(
       body: Container(
         padding: EdgeInsetsDirectional.symmetric(horizontal: 0, vertical: 5),
@@ -40,7 +29,7 @@ class Home extends StatelessWidget {
           children: [
             SearchInHomePage(),
             SizedBox(
-              height: 15,
+              height: 20,
             ),
             Expanded(
               child: ListView(
@@ -50,7 +39,7 @@ class Home extends StatelessWidget {
                     height: 15,
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Column(
                       children: [
                         TeacherSclorWithDetails(),

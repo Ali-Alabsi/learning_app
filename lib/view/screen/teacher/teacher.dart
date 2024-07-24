@@ -28,7 +28,7 @@ class Teacher extends StatelessWidget {
               init: TeacherController(),
               builder: (controller) {
                 return FutureBuilder(
-                    future: controller.dataTeachers.get(),
+                    future: controller.dataTeachers.where('active',isEqualTo: true).get(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
                         if (snapshot.hasData) {

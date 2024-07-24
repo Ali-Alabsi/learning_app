@@ -12,12 +12,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'contraller/middleware/auth_middleware.dart';
 import 'contraller/profile_controller.dart';
 import 'core/shared/color.dart';
+import 'core/teast/test_shimmer.dart';
 import 'core/teast/video_player.dart';
+import 'core/widget/shimmer_widget.dart';
 import 'firebase_options.dart';
 import 'view/screen/Welcome.dart';
 import 'view/screen/Welcome1.dart';
 import 'view/screen/auth/Login.dart';
 import 'view/screen/courses/courses_category.dart';
+import 'view/screen/notification_test.dart';
 import 'view/screen/profile/Privacy_Policy.dart';
 import 'view/screen/auth/Signup.dart';
 import 'view/screen/profile/notification.dart';
@@ -28,6 +31,10 @@ import 'view/screen/helper_screen/layout_help_screen.dart';
 import 'view/screen/layout_home/layout_home.dart';
 import 'view/screen/profile/edit_profile.dart';
 import 'view/screen/profile/lang.dart';
+import 'view/screen/search/main_search.dart';
+import 'view/screen/search_corsess_and_teacher/search_corsess.dart';
+import 'view/screen/search_corsess_and_teacher/search_teacher.dart';
+import 'view/screen/search_drop/search_drop.dart';
 import 'view/screen/teacher/teacher.dart';
 import 'view/screen/video_player/video_player.dart';
 import 'view/screen/teacher/view_details_in_teacher.dart';
@@ -62,6 +69,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         initialRoute:'/Login',
+        // home: MainSearch(),
         // initialRoute: '/Privacy_policy',
         getPages: [
           GetPage(name: '/LayoutHome', page: () => LayoutHome()),

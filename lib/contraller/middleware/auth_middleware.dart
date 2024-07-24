@@ -7,6 +7,6 @@ import 'package:get/get.dart';
 class AuthMiddleware extends GetMiddleware{
   @override
   redirect  (String? route){
-    if(FirebaseAuth.instance.currentUser!=null ) return RouteSettings(name: '/LayoutHome');
+    if(FirebaseAuth.instance.currentUser!=null   ) return RouteSettings(name: '/LayoutHome');
   }
 }

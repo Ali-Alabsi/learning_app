@@ -84,6 +84,8 @@ dependencies:
   url_launcher:
     # Icon
   eva_icons_flutter: ^3.1.0
+  googleapis:
+  googleapis_auth:
 
 
 dev_dependencies:

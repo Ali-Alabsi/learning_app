@@ -4,8 +4,8 @@ import 'package:learning_app/core/widget/app_text_form_filed.dart';
 import '../../../core/shared/color.dart';
 import '../../../core/shared/theming/text_style.dart';
 
-class Search_teacher extends StatelessWidget {
-  const Search_teacher({super.key});
+class SearchTeacher extends StatelessWidget {
+  const SearchTeacher({super.key});
 
   @override
   Widget build(BuildContext context) {

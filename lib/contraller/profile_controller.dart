@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -48,9 +51,15 @@ class ProfileController extends GetxController {
   bool isDark = false;
   bool isLoadingEdit = false;
 
-  Future<void> updateUser(context, username, phone) {
+  Future<void> updateUser(context, username, phone)  async {
     isLoadingEdit = true;
     update();
+    if(selectedImage !=null){
+      final imageUpload = await FirebaseStorage.instance.ref().child('user/${FirebaseAuth.instance.currentUser!.uid}/profile.jpg');
+      await imageUpload.putFile(File(selectedImage!.path));
+      // url = await imageUpload.getDownloadURL();
+      // print(imageUpload.fullPath);
+    }
     return dataUser
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .update({'username': username, 'phone': phone}).then((value) {

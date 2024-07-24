@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -6,6 +5,7 @@ import 'package:learning_app/contraller/teacher_controller.dart';
 import '../../../core/shared/color.dart';
 import '../../../core/shared/theming/text_style.dart';
 import '../../../core/widget/no_data.dart';
+import '../../../core/widget/shimmer_widget.dart';
 import '../../../core/widget/view_data_for_firebase_with_loading.dart';
 import '../../widget/teacher/courses_in_teacher_details_widget.dart';
 
@@ -19,7 +19,21 @@ class CoursesInTeacher extends StatelessWidget {
     return GetBuilder<TeacherController>(
       builder: (controller) {
        return  ViewDataForFireBaseWithLoading(
-          future: controller.dataCourses.where('teacher_id' ,isEqualTo: teacherId).get(),
+         widgetLoading: ListView.separated(
+             shrinkWrap: true,
+             physics: NeverScrollableScrollPhysics(),
+             itemBuilder: (context , index){
+               return ShimmerWidget(
+                 widget: Card(
+                   child: Container(
+                     height: 160,
+                   ),
+                 ),
+               );
+             }, separatorBuilder: (context , index){
+           return SizedBox(height: 10,);
+         }, itemCount: 10) ,
+          future: controller.dataCourses.where('teacher_id' ,isEqualTo: teacherId).where('active', isEqualTo: true).get(),
           widgetView: (snapshot){
             if( snapshot.data!.docs.length ==0){
               return NoDataWidget(title: 'لا يوجد كورسات لهذا المعلم ',);

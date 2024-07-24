@@ -11,7 +11,10 @@ import '../../contraller/loyout_controller.dart';
 import '../../core/shared/color.dart';
 import '../../core/shared/theming/text_style.dart';
 import '../../core/widget/image_cache_error.dart';
+import '../../core/widget/shimmer_widget.dart';
+import '../screen/courses/courses.dart';
 import '../screen/project/project_details_view.dart';
+import '../screen/search_corsess_and_teacher/search_teacher.dart';
 import '../screen/teacher/view_details_in_teacher.dart';
 import 'courses_widget.dart';
 
@@ -63,19 +66,28 @@ class CoursesSclorWithDetailsWithCategories extends StatelessWidget {
                                 alignment: Alignment.center,
                                 padding: EdgeInsetsDirectional.symmetric(
                                     horizontal: 10, vertical: 1),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.hotel_class,
-                                      size: 13,
-                                      color: ProjectColors.amberColor,
-                                    ),
-                                    Text(
-                                      DependencyInjection.obGetCourses
-                                          .listCategoriesCourses[index]["name"],
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ],
+                                child: InkWell(
+                                  onTap: (){
+                                    Get.to(Courses(
+                                      categoryId:
+                                      '${DependencyInjection.obGetCourses.listCategoriesCourses[index].id}',
+                                      categoryName: '${DependencyInjection.obGetCourses.listCategoriesCourses[index]['name']}',
+                                    ));
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.hotel_class,
+                                        size: 13,
+                                        color: ProjectColors.amberColor,
+                                      ),
+                                      Text(
+                                        DependencyInjection.obGetCourses
+                                            .listCategoriesCourses[index]["name"],
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                                 decoration: BoxDecoration(
                                     border: Border.all(
@@ -99,167 +111,199 @@ class CoursesSclorWithDetailsWithCategories extends StatelessWidget {
             init: DetailsCoursesController(),
             builder: (controller) {
               return FutureBuilder(
-                  future: controller.dataCourses.get(),
+                  future: controller.dataCourses
+                      .where('active', isEqualTo: true)
+                      .get(),
                   builder: (context, snapshot) {
-                    // Map<String, dynamic> data = snapshot.data as Map<String, dynamic>;
-                    return ListView.separated(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) => InkWell(
-                              onTap: () {
-                                Get.bottomSheet(WidgetInBottomSheet(
-                                  snapshot: snapshot,
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      if (snapshot.hasData) {
+                        return ListView.separated(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) =>
+                                CardItemCoursesInHomePage(
                                   index: index,
-                                ));
-                              },
-                              child: Container(
-                                padding: EdgeInsetsDirectional.all(10),
-                                decoration: BoxDecoration(
-                                    color: ProjectColors.whiteColor,
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: ProjectColors.greyColors200,
-                                          spreadRadius: 2,
-                                          blurRadius: 3,
-                                          offset: Offset.zero),
-                                    ],
-                                    borderRadius: BorderRadius.circular(20)),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      flex: 2,
-                                      child: Container(
-                                        height: 100,
-                                        clipBehavior:
-                                            Clip.antiAliasWithSaveLayer,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        child: ImageNetworkCache(
-                                            url:
-                                                "${DependencyInjection.obGetCourses.listCourses[index]["image"]}"),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Expanded(
-                                        flex: 5,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            SizedBox(
-                                              height: 5,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  '13 جزاء ',
-                                                  style: TextStyles
-                                                      .font18mainColorW100,
-                                                ),
-                                                Icon(
-                                                  Icons.article,
-                                                  color:
-                                                      ProjectColors.mainColor,
-                                                )
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: 5,
-                                            ),
-                                            Text(
-                                              '${DependencyInjection.obGetCourses.listCourses[index]["name"]}',
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyles.font18BlackW500,
-                                            ),
-                                            SizedBox(
-                                              height: 5,
-                                            ),
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  "${DependencyInjection.obGetCourses.listCourses[index]["price"]}  \$",
-                                                  style: TextStyles
-                                                      .font18mainColorBold,
-                                                ),
-                                                SizedBox(
-                                                  width: 5,
-                                                ),
-                                                Text(
-                                                  "${DependencyInjection.obGetCourses.listCourses[index]["price"]} \$",
-                                                  style:
-                                                      TextStyles.font18GreyW300,
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: 5,
-                                            ),
-                                            Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
-                                              children: [
-                                                Center(
-                                                    child: Icon(
-                                                  Icons.star,
-                                                  color:
-                                                      ProjectColors.amberColor,
-                                                  size: 20,
-                                                )),
-                                                SizedBox(
-                                                  width: 10,
-                                                ),
-                                                Center(
-                                                    child: Text(
-                                                  '${DependencyInjection.obGetCourses.listCourses[index]["evaluation"]}',
-                                                  style:
-                                                      TextStyles.font18GreyW300,
-                                                  textAlign: TextAlign.center,
-                                                )),
-                                                Container(
-                                                  width: 2,
-                                                  color:
-                                                      ProjectColors.greyColor,
-                                                  height: 15,
-                                                  margin: EdgeInsetsDirectional
-                                                      .symmetric(
-                                                          horizontal: 10,
-                                                          vertical: 2),
-                                                ),
-                                                Expanded(
-                                                    child: Text(
-                                                  '${DependencyInjection.obGetCourses.listCourses[index]["counter"]} تحميل لهذة الدورة',
-                                                  style:
-                                                      TextStyles.font18GreyW300,
-                                                  maxLines: 1,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                ))
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: 5,
-                                            ),
-                                          ],
-                                        ))
-                                  ],
+                                  snapshot: snapshot,
                                 ),
-                              ),
-                            ),
-                        separatorBuilder: (context, index) => SizedBox(
-                              height: 15,
-                            ),
-                        itemCount: DependencyInjection
-                            .obGetCourses.listCourses.length);
+                            separatorBuilder: (context, index) => SizedBox(
+                                  height: 15,
+                                ),
+                            itemCount: DependencyInjection
+                                .obGetCourses.listCourses.length);
+                      } else {
+                        return Center(
+                            child: ShimmerWidget(
+                          widget: ListView.separated(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                return Card(
+                                  child: Container(
+                                    height: 120,
+                                    width: double.infinity,
+                                  ),
+                                );
+                              },
+                              separatorBuilder: (context, index) {
+                                return SizedBox(width: 10);
+                              },
+                              itemCount: 10),
+                        ));
+                      }
+                    } else {
+                      return Center(
+                          child: ShimmerWidget(
+                        widget: ListView.separated(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return Card(
+                                child: Container(
+                                  height: 120,
+                                  width: double.infinity,
+                                ),
+                              );
+                            },
+                            separatorBuilder: (context, index) {
+                              return SizedBox(width: 10);
+                            },
+                            itemCount: 10),
+                      ));
+                    }
                   });
             })
       ],
+    );
+  }
+}
+
+class CardItemCoursesInHomePage extends StatelessWidget {
+  final int index;
+  final snapshot;
+
+  const CardItemCoursesInHomePage({
+    super.key,
+    required this.index,
+    required this.snapshot,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        Get.bottomSheet(WidgetInBottomSheet(
+          snapshot: snapshot,
+          index: index,
+        ));
+      },
+      child: Card(
+        child: Container(
+          padding: EdgeInsetsDirectional.all(10),
+          child: Row(
+            children: [
+              Expanded(
+                flex: 2,
+                child: Container(
+                  height: 100,
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                  child: ImageNetworkCache(
+                      url:
+                          "${DependencyInjection.obGetCourses.listCourses[index]["image"]}"),
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                  flex: 5,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        height: 3,
+                      ),
+                      Text(
+                        '${DependencyInjection.obGetCourses.listCourses[index]["name"]}',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyles.font18BlackW500,
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "${DependencyInjection.obGetCourses.listCourses[index]["counter"]} جزاء ",
+                            style: TextStyles.font18mainColorW100,
+                          ),
+                          Text(
+                            "${DependencyInjection.obGetCourses.listCourses[index]["hours_counter"]} ساعة ",
+                            style: TextStyles.font18mainColorW100,
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                "${int.parse(DependencyInjection.obGetCourses.listCourses[index]["price"]) -int.parse(DependencyInjection.obGetCourses.listCourses[index]["discount"])}\$",
+                                style: TextStyles.font18mainColorBold,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                "${DependencyInjection.obGetCourses.listCourses[index]["price"]}\$",
+                                style: TextStyles.font18GreyW300,
+                              ),
+                            ],
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Center(
+                                  child: Icon(
+                                    Icons.star,
+                                    color: ProjectColors.amberColor,
+                                    size: 23,
+                                  )),
+                              Center(
+                                  child: Text(
+                                    '${DependencyInjection.obGetCourses.listCourses[index]["evaluation"]}',
+                                    style: TextStyles.font18GreyW300,
+                                    textAlign: TextAlign.center,
+                                  )),
+                              SizedBox(
+                                width: 5,
+                              ),
+
+                            ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+
+                    ],
+                  ))
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
@@ -301,7 +345,9 @@ class TeacherSclorWithDetails extends StatelessWidget {
               return Container(
                 height: 80,
                 child: FutureBuilder(
-                    future: controller.dataTeachers.get(),
+                    future: controller.dataTeachers
+                        .where('active', isEqualTo: true)
+                        .get(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
                         if (snapshot.hasData) {
@@ -316,10 +362,38 @@ class TeacherSclorWithDetails extends StatelessWidget {
                                   ),
                               itemCount: snapshot.data!.docs.length);
                         } else {
-                          return Center(child: CircularProgressIndicator());
+                          return Center(
+                              child: ShimmerWidget(
+                            widget: ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  return CircleAvatar(
+                                    radius: 30,
+                                  );
+                                },
+                                separatorBuilder: (context, index) {
+                                  return SizedBox(width: 10);
+                                },
+                                itemCount: 10),
+                          ));
                         }
                       } else {
-                        return Center(child: CircularProgressIndicator());
+                        return Center(
+                            child: ShimmerWidget(
+                          widget: ListView.separated(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                return CircleAvatar(
+                                  radius: 25,
+                                );
+                              },
+                              separatorBuilder: (context, index) {
+                                return SizedBox(width: 10);
+                              },
+                              itemCount: 10),
+                        ));
                       }
                     }),
               );
@@ -342,8 +416,10 @@ class cardItemTeacherInHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
-        Get.to(ViewDetailsInTeacher(teacherId: snapshot.data!.docs[index].id,));
+      onTap: () {
+        Get.to(ViewDetailsInTeacher(
+          teacherId: snapshot.data!.docs[index].id,
+        ));
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -389,45 +465,60 @@ class PackageSclorWithDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "ألمشاريع الاكثر شعبية",
-              style: TextStyles.font18BlackW500,
-            ),
-            InkWell(
-              onTap: () {
-                obGet.changeCurrentIndex(3);
-              },
-              child: Text(
-                'رؤية الجميع',
-                style: TextStyles.font18mainColorW100,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "ألمشاريع الاكثر شعبية",
+                style: TextStyles.font18BlackW500,
               ),
-            )
-          ],
+              InkWell(
+                onTap: () {
+                  obGet.changeCurrentIndex(3);
+                },
+                child: Text(
+                  'رؤية الجميع',
+                  style: TextStyles.font18mainColorW100,
+                ),
+              )
+            ],
+          ),
         ),
         SizedBox(
           height: 15,
         ),
-        CarouselSlider(
-            items: listProjectWidget,
-            options: CarouselOptions(
-              height: 200,
-              aspectRatio: 16 / 9,
-              viewportFraction: 0.8,
-              initialPage: 0,
-              enableInfiniteScroll: true,
-              reverse: false,
-              autoPlay: true,
-              autoPlayInterval: Duration(seconds: 3),
-              autoPlayAnimationDuration: Duration(milliseconds: 800),
-              autoPlayCurve: Curves.fastOutSlowIn,
-              enlargeCenterPage: true,
-              enlargeFactor: 0.3,
-              onPageChanged: (v, d) {},
-              scrollDirection: Axis.horizontal,
-            )),
+        listProjectWidget.length == 0
+            ? Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+                child: ShimmerWidget(
+                    widget: Card(
+                  child: Container(
+                    height: 200,
+                    width: double.infinity,
+                  ),
+                )),
+              )
+            : CarouselSlider(
+                items: listProjectWidget,
+                options: CarouselOptions(
+                  height: 200,
+                  aspectRatio: 16 / 9,
+                  viewportFraction: 0.8,
+                  initialPage: 0,
+                  enableInfiniteScroll: true,
+                  reverse: false,
+                  autoPlay: true,
+                  autoPlayInterval: Duration(seconds: 3),
+                  autoPlayAnimationDuration: Duration(milliseconds: 800),
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  enlargeCenterPage: true,
+                  enlargeFactor: 0.3,
+                  onPageChanged: (v, d) {},
+                  scrollDirection: Axis.horizontal,
+                )),
       ],
     );
   }
@@ -441,6 +532,7 @@ class SearchInHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsetsDirectional.symmetric(horizontal: 15),
       decoration: BoxDecoration(
         color: ProjectColors.greyColors200,
         borderRadius: BorderRadius.circular(10),
@@ -453,6 +545,9 @@ class SearchInHomePage extends StatelessWidget {
         ],
       ),
       child: TextFormField(
+        onTap: () {
+          Get.to(SearchTeacher());
+        },
         decoration: InputDecoration(
           contentPadding: EdgeInsets.all(10),
           prefixIcon: Icon(
@@ -496,7 +591,7 @@ class TopSclorProjectHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
+      onTap: () {
         Get.to(ViewDetailsView(appId: listProject[i].id));
       },
       child: Container(

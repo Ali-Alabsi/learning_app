@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:learning_app/contraller/app_controller.dart';
 import 'package:learning_app/core/widget/awesome_dialog.dart';
 import 'package:learning_app/core/widget/image_cache_error.dart';
+import 'package:learning_app/core/widget/shimmer_widget.dart';
 
 import '../../../core/shared/theming/text_style.dart';
 
@@ -111,10 +112,33 @@ class ViewDetailsView extends StatelessWidget {
                         ],
                       );
                     } else {
-                      return Center(child: CircularProgressIndicator());
+                      return ShimmerWidget(
+                          widget: Column(
+                        children: [
+                          Card(
+                            child: Container(
+                              height: 400,
+                              width: double.infinity,
+                            ),
+                          ),
+                        ],
+                      ));
                     }
                   } else {
-                    return Center(child: CircularProgressIndicator());
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: ShimmerWidget(
+                          widget: Column(
+                        children: [
+                          Card(
+                            child: Container(
+                              height: 400,
+                              width: double.infinity,
+                            ),
+                          ),
+                        ],
+                      )),
+                    );
                   }
                 });
           }),

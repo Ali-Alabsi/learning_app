@@ -3,13 +3,16 @@ import 'package:get/get.dart';
 import 'package:learning_app/core/dependency_injection/dependency_injection.dart';
 import 'package:learning_app/core/shared/color.dart';
 import 'package:learning_app/core/shared/theming/text_style.dart';
+import 'package:learning_app/core/widget/shimmer_widget.dart';
 
 import '../../../core/widget/awesome_dialog.dart';
 import '../video_player/video_player.dart';
 
 class LessonsInDetailsCourses extends StatelessWidget {
   final String courseId;
+
   const LessonsInDetailsCourses({super.key, required this.courseId});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,37 +42,57 @@ class LessonsInDetailsCourses extends StatelessWidget {
                     FutureBuilder(
                         future: DependencyInjection.obGetCourses.dataCourses
                             .doc(courseId)
-                            .collection('video').orderBy('video_id')
+                            .collection('video')
+                            .orderBy('video_id')
                             .get(),
                         builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.done) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
                             if (snapshot.hasData) {
                               return ListView.separated(
                                   shrinkWrap: true,
                                   physics: NeverScrollableScrollPhysics(),
                                   itemBuilder: (context, index) {
-                                    if(index ==2){
-                                     return  null;
-                                    }else{
-                                     return ItemInTuition(
+                                    if (index == 2) {
+                                      return null;
+                                    } else {
+                                      return ItemInTuition(
                                         icon: Icons.slow_motion_video_sharp,
                                         index: index,
-                                        snapshot: snapshot, coursesId: courseId,
+                                        snapshot: snapshot,
+                                        coursesId: courseId,
                                       );
                                     }
                                   },
-                                  separatorBuilder: (context, index) => SizedBox(
-                                    height: 10,
-                                  ),
+                                  separatorBuilder: (context, index) =>
+                                      SizedBox(
+                                        height: 10,
+                                      ),
                                   itemCount: snapshot.data!.docs.length);
                             } else {
                               return Center(child: CircularProgressIndicator());
                             }
                           } else {
-                            return Center(child: CircularProgressIndicator());
+                            return ListView.separated(
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemBuilder: (context , index){
+                                  return  ShimmerWidget(
+                                    widget: Container(
+                                      height: 80,
+                                      width: double.infinity,
+                                      child: Card(
+                                          elevation: 3,
+                                          child: Padding(
+                                            padding: EdgeInsets.all(8),
+                                          )),
+                                    ),
+                                  );
+                                }, separatorBuilder: (context , index){
+                              return SizedBox(height: 10,);
+                            }, itemCount: 2);
                           }
-                        }
-                        ),
+                        }),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10.0),
                       child: Row(
@@ -79,8 +102,7 @@ class LessonsInDetailsCourses extends StatelessWidget {
                             'اضهار الكل',
                             style: TextStyles.font20BlackW100,
                           ),
-                          Text('20 مقطع',
-                              style: TextStyles.font20BlackW100),
+                          Text('20 مقطع', style: TextStyles.font20BlackW100),
                         ],
                       ),
                     ),
@@ -90,35 +112,54 @@ class LessonsInDetailsCourses extends StatelessWidget {
                     FutureBuilder(
                         future: DependencyInjection.obGetCourses.dataCourses
                             .doc(courseId)
-                            .collection('video').orderBy('video_id')
+                            .collection('video')
+                            .orderBy('video_id')
                             .get(),
                         builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.done) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
                             if (snapshot.hasData) {
                               return ListView.separated(
                                   shrinkWrap: true,
                                   physics: NeverScrollableScrollPhysics(),
                                   itemBuilder: (context, index) {
-                                      return ItemInTuition(
-                                        icon: Icons.slow_motion_video_sharp,
-                                        index: index,
-                                        isPaid: true,
-                                        snapshot: snapshot, coursesId: courseId,
-                                      );
-
+                                    return ItemInTuition(
+                                      icon: Icons.slow_motion_video_sharp,
+                                      index: index,
+                                      isPaid: true,
+                                      snapshot: snapshot,
+                                      coursesId: courseId,
+                                    );
                                   },
-                                  separatorBuilder: (context, index) => SizedBox(
-                                    height: 10,
-                                  ),
+                                  separatorBuilder: (context, index) =>
+                                      SizedBox(
+                                        height: 10,
+                                      ),
                                   itemCount: snapshot.data!.docs.length);
                             } else {
                               return Center(child: CircularProgressIndicator());
                             }
                           } else {
-                            return Center(child: CircularProgressIndicator());
+                            return ListView.separated(
+                              shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemBuilder: (context , index){
+                                  return  ShimmerWidget(
+                                    widget: Container(
+                                      height: 80,
+                                      width: double.infinity,
+                                      child: Card(
+                                          elevation: 3,
+                                          child: Padding(
+                                            padding: EdgeInsets.all(8),
+                                          )),
+                                    ),
+                                  );
+                                }, separatorBuilder: (context , index){
+                                  return SizedBox(height: 15,);
+                            }, itemCount: 10);
                           }
-                        }
-                    ),
+                        }),
                   ],
                 ),
               ),
@@ -134,12 +175,14 @@ class ItemInTuition extends StatelessWidget {
   final String coursesId;
   final int index;
   final IconData icon;
-  final bool isPaid ;
+  final bool isPaid;
+
   final snapshot;
+
   const ItemInTuition({
     super.key,
     required this.index,
-    this.isPaid =false,
+    this.isPaid = false,
     required this.icon,
     required this.snapshot,
     required this.coursesId,
@@ -149,15 +192,19 @@ class ItemInTuition extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        if(isPaid){
-          AwesomeDialogFunction.awesomeDialogError(context ,'خطاء في الدفع' , 'يرجى اولاُ دفع قيمتة الكورس حتى تستطيع المشاهدة');
-        }else{
-          Get.to(VideoApp(urlVideo: snapshot.data!.docs[index]['video_url'], videoId: snapshot.data!.docs[index].id, coursesId: coursesId,));
+        if (isPaid) {
+          AwesomeDialogFunction.awesomeDialogError(context, 'خطاء في الدفع',
+              'يرجى اولاُ دفع قيمتة الكورس حتى تستطيع المشاهدة');
+        } else {
+          Get.to(VideoApp(
+            urlVideo: snapshot.data!.docs[index]['video_url'],
+            videoId: snapshot.data!.docs[index].id,
+            coursesId: coursesId,
+          ));
         }
       },
       child: Container(
         height: 80,
-
         child: Card(
             elevation: 3,
             child: Padding(
@@ -194,7 +241,6 @@ class ItemInTuition extends StatelessWidget {
                         ),
                         Expanded(
                           child: Column(
-
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
@@ -203,7 +249,6 @@ class ItemInTuition extends StatelessWidget {
                                 style: TextStyles.font20BlackW100,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
-
                               ),
                               Container(
                                 decoration: BoxDecoration(
@@ -216,7 +261,6 @@ class ItemInTuition extends StatelessWidget {
                                 ),
                                 height: 4,
                                 width: double.infinity,
-
                               )
                             ],
                           ),

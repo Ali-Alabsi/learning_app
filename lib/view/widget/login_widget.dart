@@ -10,13 +10,10 @@ import '../../core/widget/app_text_form_filed.dart';
 import '../../core/widget/button.dart';
 import '../../core/widget/snabar.dart';
 import '../../core/widget/valid.dart';
-
 import '../../model/sign_up_model/sign_up_model.dart';
 
-
-
 class ButtonCreateAccountInLoginScreen extends StatelessWidget {
-   ButtonCreateAccountInLoginScreen({
+  ButtonCreateAccountInLoginScreen({
     super.key,
   });
 
@@ -31,7 +28,7 @@ class ButtonCreateAccountInLoginScreen extends StatelessWidget {
         ),
         TextButton(
             onPressed: () {
-             Get.toNamed('/Signup');
+              Get.toNamed('/Signup');
             },
             child: Text('أنشاء حساب'))
       ],
@@ -135,7 +132,11 @@ class ForgetPassword extends StatelessWidget {
     return Container(
         width: double.infinity,
         child: TextButton(
-            onPressed: () {},
+            onPressed: () {
+                DependencyInjection.obGetLogin
+                    .forgotPassword(context,'alabsiali247@gmail.com');
+
+            },
             child: Text(
               'نسيت كلمة المرور ؟',
               style: TextStyle(color: Colors.grey),
@@ -150,7 +151,6 @@ class FormEmailAndPasswordInLoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Form(
@@ -158,19 +158,18 @@ class FormEmailAndPasswordInLoginScreen extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: 70,
+              height: 50,
             ),
             AppTextFormFiled(
               controller: MyController.emailLogin,
               keyboardType: TextInputType.emailAddress,
-              validator: (value){
-                if(isEmail(value!) ==false){
+              validator: (value) {
+                if (isEmail(value!) == false) {
                   return 'هذا الايميل غير صحيح';
                 }
               },
               hintText: 'البريد الالكتروني',
               prefixIcon: Icon(Icons.email),
-
             ),
             SizedBox(
               height: 30,
@@ -180,19 +179,17 @@ class FormEmailAndPasswordInLoginScreen extends StatelessWidget {
                 builder: (obGet) {
                   return AppTextFormFiled(
                     controller: MyController.passwordLogin,
-                    validator: (value){
-                      if(isPassword(value!) ==false){
+                    validator: (value) {
+                      if (isPassword(value!) == false) {
                         return 'كلمة المرور ضعية';
                       }
                     },
-
                     hintText: 'كلمة المرور',
                     prefixIcon: Icon(Icons.lock),
                     obscureText: obGet.isPassword,
                     suffixIcon: InkWell(
                         onTap: () {
                           obGet.changeIsPassword();
-
                         },
                         child: obGet.isPassword
                             ? Icon(
@@ -215,22 +212,30 @@ class FormEmailAndPasswordInLoginScreen extends StatelessWidget {
 class ButtonInLoginScreen extends StatelessWidget {
   final LoginController controller;
   final BuildContext buildContext;
+
   const ButtonInLoginScreen({
-    super.key,required this.controller, required this.buildContext,
+    super.key,
+    required this.controller,
+    required this.buildContext,
   });
 
   @override
   Widget build(BuildContext context) {
-
-    return MainButton(name: 'LOGIN',onPressed: ()async {
-       if(controller.loginForm.currentState!.validate()){
-         // Get.offNamed('/LayoutHome');
-         await controller.login(buildContext);
-       }
-      // mm( 'alii' ,'aa@gmail.com' , '1234567' ,'59433224'  );
-
-    },
-      margin: EdgeInsetsDirectional.symmetric(horizontal: 20),
-    );
+    return FutureBuilder(
+        future: controller.dataLoginUsers
+            .where('email', isEqualTo: MyController.emailLogin.text)
+            .get(),
+        builder: (context, snapshot) {
+          return MainButton(
+            name: 'LOGIN',
+            onPressed: () async {
+              if (controller.loginForm.currentState!.validate()) {
+                await controller.login(buildContext, snapshot);
+              }
+              // mm( 'alii' ,'aa@gmail.com' , '1234567' ,'59433224'  );
+            },
+            margin: EdgeInsetsDirectional.symmetric(horizontal: 20),
+          );
+        });
   }
 }

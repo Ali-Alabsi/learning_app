@@ -6,25 +6,24 @@ import '../../widget/login_widget.dart';
 
 class Login extends StatelessWidget {
   Login({Key? key}) : super(key: key);
-
   // onFieldSubmitted? value
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: Padding(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Padding(
           padding: EdgeInsetsDirectional.symmetric(horizontal: 20),
           child: SingleChildScrollView(
             child: Column(
               children: [
-
                 Column(
                   children: [
                     SizedBox(
                       height: 50,
                       width: double.infinity,
                     ),
+                    Image.asset('assets/images/app-icon.png',width: 140, height: 140,fit: BoxFit.cover,),
                     Text(
                       "تسجيل الدخول",
                       style: TextStyles.font24BlackW600
@@ -56,15 +55,7 @@ class Login extends StatelessWidget {
                     ),
                     ForgetPassword(),
                     SizedBox(
-                      height: 30,
-                    ),
-                    NameOfAntherLogin(),
-                    SizedBox(
                       height: 20,
-                    ),
-                    ListLoginInAntherAccount(),
-                    SizedBox(
-                      height: 30,
                     ),
                     ButtonCreateAccountInLoginScreen()
                   ],

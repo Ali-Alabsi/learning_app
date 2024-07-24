@@ -14,7 +14,7 @@ class DetailsCoursesController extends GetxController{
    List listCourses = [];
    List listCategoriesCourses = [];
   addDataToListCourses() async {
-    QuerySnapshot dataCoursesT = await  FirebaseFirestore.instance.collection("courses").get();
+    QuerySnapshot dataCoursesT = await  FirebaseFirestore.instance.collection("courses").where('active',isEqualTo: true).get();
       listCourses.addAll(dataCoursesT.docs);
      print('Data Courses ${listCourses[0]['name']}' );
   }

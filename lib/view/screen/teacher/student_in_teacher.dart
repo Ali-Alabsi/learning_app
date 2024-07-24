@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learning_app/contraller/teacher_controller.dart';
 import '../../../core/widget/no_data.dart';
+import '../../../core/widget/shimmer_widget.dart';
 import '../../../core/widget/view_data_for_firebase_with_loading.dart';
 import '../../widget/teacher/student_in_teacher_widget.dart';
 class StudentInTeacher extends StatelessWidget {
@@ -13,6 +14,20 @@ class StudentInTeacher extends StatelessWidget {
     return GetBuilder<TeacherController>(
       builder: (controller) {
         return ViewDataForFireBaseWithLoading(
+          widgetLoading: ListView.separated(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemBuilder: (context , index){
+                return ShimmerWidget(
+                  widget: Card(
+                    child: Container(
+                      height: 80,
+                    ),
+                  ),
+                );
+              }, separatorBuilder: (context , index){
+            return SizedBox(height: 10,);
+          }, itemCount: 10) ,
           future: controller.dataCoursesStudent.where('teacher_id', isEqualTo: teacherId).get(),
           widgetView: (snapshot){
             if( snapshot.data!.docs.length ==0){

@@ -134,6 +134,7 @@ class FormInSignUp extends StatelessWidget {
             child: Column(
               children: [
                 AppTextFormFiled(
+                  noSpaceTextInputFormatter: false,
                   controller: MyController.nameSignup,
                   validator: (value){
                     if(value ==''){

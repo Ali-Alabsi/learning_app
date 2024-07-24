@@ -17,7 +17,7 @@ class PageCoursesSclorWithCategories extends StatelessWidget {
         children: [
           FutureBuilder(
               future: DependencyInjection.obGetCourses.dataCourses
-                  .where('categories', isEqualTo: categoryId)
+                  .where('categories', isEqualTo: categoryId).where('active',isEqualTo: true)
                   .get(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {

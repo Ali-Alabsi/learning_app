@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:learning_app/core/shared/color.dart';
 import '../../../contraller/profile_controller.dart';
 import '../../../core/shared/theming/text_style.dart';
+import '../../../core/widget/shimmer_widget.dart';
 import '../../widget/profile/profile_widget.dart';
 
 class Profile extends StatelessWidget {
@@ -80,10 +81,31 @@ class Profile extends StatelessWidget {
                         ),
                       );
                     } else {
-                      return Center(child: CircularProgressIndicator());
+                      return ShimmerWidget(
+                        widget: Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Card(
+                            child: Container(
+                              height: double.infinity,
+                              width: double.infinity,
+                            ),
+                          ),
+                        ),
+                      );
                     }
                   } else {
-                    return Center(child: CircularProgressIndicator());
+
+                    return ShimmerWidget(
+                      widget: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 60 , horizontal: 20),
+                        child: Card(
+                          child: Container(
+                            height: double.infinity,
+                            width: double.infinity,
+                          ),
+                        ),
+                      ),
+                    );
                   }
                 });
           }),
