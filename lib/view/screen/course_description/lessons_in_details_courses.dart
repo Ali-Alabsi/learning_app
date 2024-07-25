@@ -199,6 +199,7 @@ class ItemInTuition extends StatelessWidget {
           Get.to(VideoApp(
             urlVideo: snapshot.data!.docs[index]['video_url'],
             videoId: snapshot.data!.docs[index].id,
+            name: snapshot.data!.docs[index]['name'],
             coursesId: coursesId,
           ));
         }

@@ -1,5 +1,4 @@
 
-
 import 'dart:io';
 
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
@@ -10,13 +9,14 @@ import '../../../core/shared/color.dart';
 import '../../../core/shared/theming/text_style.dart';
 
 
-
-
 class CallMeInHelpScreen extends StatelessWidget {
   const CallMeInHelpScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('مركز المساعدة'),
+      ),
      body: Container(
        color: ProjectColors.moreGrayColor,
        child: Padding(

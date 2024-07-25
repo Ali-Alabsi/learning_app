@@ -8,6 +8,7 @@ import '../../../core/shared/color.dart';
 import '../../../core/shared/theming/text_style.dart';
 import '../../../core/widget/awesome_dialog.dart';
 import '../../screen/auth/Login.dart';
+import '../../screen/helper_screen/call_me_in_help_screen.dart';
 
 class ListItemAllInProfile extends StatelessWidget {
   const ListItemAllInProfile({
@@ -56,7 +57,7 @@ class ListItemAllInProfile extends StatelessWidget {
                 )),
             ItemListInProfile(
               onTap: (){
-                Get.toNamed('/LayoutHelpScreen');
+                Get.to(CallMeInHelpScreen());
               },
               name: 'مركز المساعدة',
               icon: Icons.help_outline,
